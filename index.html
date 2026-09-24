@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=40" />
+  <link rel="stylesheet" href="style.css?v=42" />
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn8B9YlW0QAAAABJRU5ErkJggg==">
 </head>
 <body>
@@ -78,7 +78,7 @@
     </div>
   </main>
 
-  <!-- ACT II: CELEBRATION SCREEN (White & Blue Aesthetic Theme) -->
+  <!-- ACT II: CELEBRATION SCREEN -->
   <main id="celebrationScreen" class="screen screen--celebration" hidden>
     <div class="aes-wrapper">
       
@@ -114,8 +114,9 @@
           </svg>
         </div>
 
+        <!-- REMOVED HEART SYMBOL -->
         <div class="aes-wall-text">
-          Happy<br>Birthday <span>♡</span>
+          Happy<br>Birthday
         </div>
 
         <div class="aes-polaroids">
@@ -128,6 +129,7 @@
             <span>•</span>
             <p>Another<br>year<br>of<br>blessings<br>♥</p>
           </div>
+          <!-- Resized & Realigned Photos -->
           <div class="aes-polaroid photo-card p-bot-1"><span>•</span><div class="img-wrap"><img src="photo/1.jpeg" onerror="this.src='photo/fi.png'"></div></div>
           <div class="aes-polaroid photo-card p-bot-2"><span>•</span><div class="img-wrap"><img src="photo/2.jpeg" onerror="this.src='photo/fi.png'"></div></div>
           <div class="aes-polaroid photo-card p-bot-3"><span>•</span><div class="img-wrap"><img src="photo/3.jpeg" onerror="this.src='photo/fi.png'"></div></div>
@@ -140,7 +142,7 @@
         <div class="aes-table-surface"></div>
         <div class="aes-table-runner"></div>
 
-        <!-- CENTER CAKE -->
+        <!-- CENTER CAKE (Now Larger) -->
         <div class="aes-center-cake">
           <div class="aes-ground-shadow cake-shadow"></div>
           <div class="pixel-cake">
@@ -168,27 +170,21 @@
           </div>
         </div>
 
-        <!-- RIGHT CANDELABRA (Fixed Flames) -->
+        <!-- MODERN 3-PILLAR CANDLE CLUSTER (Replaces Candelabra) -->
         <div class="aes-candelabra">
           <div class="aes-ground-shadow candelabra-shadow"></div>
-          <div class="arm left-arm"></div>
-          <div class="arm right-arm"></div>
-          <div class="stem"></div>
           <div class="tall-candle c-left"><div class="tall-flame"></div></div>
-          <div class="tall-candle c-center"><div class="tall-flame"></div></div>
           <div class="tall-candle c-right"><div class="tall-flame"></div></div>
-          <div class="c-bow left-bow"></div>
-          <div class="c-bow right-bow"></div>
+          <div class="tall-candle c-center"><div class="tall-flame"></div></div>
         </div>
 
-        <!-- NEW: AESTHETIC WOVEN GIFT BASKET CLUSTER -->
+        <!-- LEFT CLUSTER -->
         <div class="aes-basket-cluster">
           <div class="aes-ground-shadow basket-floor-shadow"></div>
           
-          <!-- Basket Inside Wall -->
           <div class="basket-back"></div>
           
-          <!-- 1. The Pro Memory Book (Left side of basket) -->
+          <!-- 1. The Pro Memory Book (Aligned Rightward) -->
           <div id="memoryAlbum" class="aes-memory-book" aria-label="Open photo album">
             <div class="book-cover-closed">
                <div class="book-spiral">
@@ -219,9 +215,9 @@
             </div>
           </div>
   
-          <!-- 2. The 3D Letter (Middle of basket) -->
+          <!-- 2. The 3D Letter -->
           <article id="handwrittenLetter" class="aes-3d-card">
-            <!-- Closed State (Cover - Rustic Torn Paper & Bouquet) -->
+            <!-- Closed State -->
             <div class="card-cover" id="letterTeaser">
               <div class="craft-paper-base">
                 <div class="torn-paper-wrapper">
@@ -291,7 +287,7 @@
             </div>
           </article>
 
-          <!-- 3. Green Plaid Gift Box (Right side of basket) -->
+          <!-- 3. Green Plaid Gift Box -->
           <div class="aes-gift-setup">
             <div id="giftBox" class="aes-plaid-box">
               <div class="box-body plaid-pattern"></div>
@@ -308,7 +304,6 @@
             </div>
           </div>
 
-          <!-- Basket Front Wall (Woven texture) -->
           <div class="basket-front"></div>
         </div>
 
@@ -320,6 +315,6 @@
     <source src="hbb.mp3" type="audio/mpeg">
   </audio>
 
-  <script src="script.js?v=40"></script>
+  <script src="script.js?v=42"></script>
 </body>
 </html>
