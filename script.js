@@ -1,114 +1,148 @@
-// DOM Elements
 const initialScreen = document.getElementById('initialScreen');
 const celebrationScreen = document.getElementById('celebrationScreen');
 const pixelCake = document.getElementById('pixelCake');
-const startButton = document.getElementById('startButton');
-const volumeIndicator = document.querySelector('.volume-indicator');
+const candleFlame = document.getElementById('candleFlame');
+const volumeHud = document.getElementById('volumeHud');
 const volumeFill = document.getElementById('volumeFill');
 const volumeText = document.getElementById('volumeText');
 const errorMessage = document.getElementById('errorMessage');
-const birthdayCard = document.getElementById('birthdayCard');
-const cardModal = document.getElementById('cardModal');
-const closeCardModal = document.getElementById('closeCardModal');
 const backgroundMusic = document.getElementById('backgroundMusic');
+const handwrittenLetter = document.getElementById('handwrittenLetter');
+const giftBox = document.getElementById('giftBox');
+const wishMessage = document.getElementById('wishMessage');
+const partyCat = document.getElementById('partyCat');
+const memoryAlbum = document.getElementById('memoryAlbum');
+const albumPages = document.getElementById('albumPages');
+const albumPhotos = [
+  '1.jpeg', '10.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg',
+  'Screen Shot 2026-09-23 at 11.35.50 PM.png', 'Screen Shot 2026-09-23 at 11.37.05 PM.png',
+  'Screen Shot 2026-09-23 at 11.37.27 PM.png', 'Screen Shot 2026-09-23 at 11.37.40 PM.png',
+  'Screen Shot 2026-09-23 at 11.37.58 PM.png', 'Screen Shot 2026-09-23 at 11.38.15 PM.png',
+  'Screen Shot 2026-09-23 at 11.38.27 PM.png', 'Screen Shot 2026-09-23 at 11.38.36 PM.png',
+  'Screen Shot 2026-09-23 at 11.38.44 PM.png', 'Screen Shot 2026-09-23 at 11.38.54 PM.png',
+  'Screen Shot 2026-09-23 at 11.39.01 PM.png', 'Screen Shot 2026-09-23 at 11.39.08 PM.png',
+  'Screen Shot 2026-09-23 at 11.39.20 PM.png', 'Screen Shot 2026-09-23 at 11.39.34 PM.png',
+  'Screen Shot 2026-09-23 at 11.39.55 PM.png', 'Screen Shot 2026-09-23 at 11.40.04 PM.png',
+  'Screen Shot 2026-09-23 at 11.40.22 PM.png', 'Screen Shot 2026-09-23 at 11.40.46 PM.png',
+  'Screen Shot 2026-09-23 at 11.40.55 PM.png', 'Screen Shot 2026-09-23 at 11.41.02 PM.png',
+  'Screen Shot 2026-09-23 at 11.41.09 PM.png', 'Screen Shot 2026-09-23 at 11.41.20 PM.png',
+  'Screen Shot 2026-09-23 at 11.41.30 PM.png', 'Screen Shot 2026-09-23 at 11.41.36 PM.png',
+  'Screen Shot 2026-09-23 at 11.41.45 PM.png', 'Screen Shot 2026-09-23 at 11.42.11 PM.png',
+  'Screen Shot 2026-09-23 at 11.42.22 PM.png', 'Screen Shot 2026-09-23 at 11.42.37 PM.png',
+  'Screen Shot 2026-09-23 at 11.42.52 PM.png', 'Screen Shot 2026-09-23 at 11.43.05 PM.png',
+  'Screen Shot 2026-09-23 at 11.43.15 PM.png', 'Screen Shot 2026-09-23 at 11.45.12 PM.png',
+  'adi6.jpeg', 'fi.png', 'fi2.jpeg', 'fi3.jpeg', 'fiadd.png'
+];
 
-// Audio Context
+// Audio Context Variables
 let audioContext;
 let analyser;
 let microphone;
 let animationFrame;
 let hasCelebrated = false;
 let stream = null;
+let candleLit = false;
+let holdTimer = null;
+let rainTimer = null;
+const BLOW_THRESHOLD = 0.07;
+const HOLD_DURATION = 180;
 
-// Constants
-const BLOW_THRESHOLD = 0.15;
-const HOLD_DURATION = 400;
-
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM loaded');
-  console.log('Pixel cake element:', pixelCake);
-  
-  // Click cake to start
+  // Cake click handler
   if (pixelCake) {
     pixelCake.addEventListener('click', handleCakeClick);
-    console.log('Cake click handler attached');
-  } else {
-    console.error('Pixel cake element not found!');
+    pixelCake.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        handleCakeClick();
+      }
+    });
   }
   
-  // Start button (backup)
-  startButton.addEventListener('click', handleStart);
-  
-  // Card interactions
-  birthdayCard.addEventListener('click', handleCardClick);
-  closeCardModal.addEventListener('click', () => {
-    cardModal.hidden = true;
-    cardFlipCount = 0; // Reset on close
-  });
-  cardModal.addEventListener('click', (e) => {
-    if (e.target === cardModal || e.target.classList.contains('card-modal__overlay')) {
-      cardModal.hidden = true;
-      cardFlipCount = 0; // Reset on close
-    }
-  });
-  
-  // Try to play background music (may require user interaction)
-  backgroundMusic.volume = 0.3;
-  
-  // Create initial screen particles
-  createInitialParticles();
+  // Letter expand/collapse handler
+  if (handwrittenLetter) {
+    handwrittenLetter.addEventListener('click', () => {
+      const teaser = document.getElementById('letterTeaser');
+      const message = document.getElementById('letterMessage');
+      if (message.hidden) {
+        teaser.hidden = true;
+        message.hidden = false;
+        handwrittenLetter.classList.add('expanded');
+      } else {
+        teaser.hidden = false;
+        message.hidden = true;
+        handwrittenLetter.classList.remove('expanded');
+      }
+    });
+  }
+
+  // Gift box open handler
+  if (giftBox) {
+    giftBox.addEventListener('click', () => {
+      giftBox.classList.add('open');
+      document.getElementById('pixelChicken').hidden = false;
+    });
+  }
+
+  if (memoryAlbum && albumPages) {
+    albumPages.innerHTML = albumPhotos.map((photo, index) => `<img src="${encodeURI(`photo/${photo}`)}" alt="Memory ${index + 1}" loading="lazy">`).join('');
+    memoryAlbum.addEventListener('click', () => {
+      const isOpen = memoryAlbum.classList.toggle('album-open');
+      memoryAlbum.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
 });
 
+// --- CAKE INTERACTION LOGIC --- //
 function handleCakeClick() {
-  if (startButton.classList.contains('button--hidden')) {
-    startButton.classList.remove('button--hidden');
-    startButton.textContent = 'Start the celebration';
+  if (!candleLit) {
+    // 1. Light the candle
+    candleFlame.classList.add('active');
+    candleLit = true;
+    initialScreen.classList.add('celebration-active'); // This triggers the CSS to hide the caption
+    if (partyCat) partyCat.classList.add('party-cat--visible');
+    if (wishMessage) wishMessage.hidden = false;
+    
+    // 2. Play the tune immediately
+    if (backgroundMusic) {
+      backgroundMusic.volume = 0.5;
+      backgroundMusic.play().catch(e => console.log('Autoplay blocked by browser'));
+    }
+    
+    // 3. Fire the aesthetic poppers!
+    fireConfetti(240);
+    startConfettiRain();
+    
+    // 4. Start the microphone to listen for the blow
+    startMicSequence();
   }
-  handleStart();
+  // BUG FIX: Removed the "else" block. Tapping the cake again does nothing now!
 }
 
-async function handleStart() {
-  startButton.disabled = true;
-  startButton.textContent = 'Requesting microphone access...';
-  errorMessage.hidden = true;
+async function startMicSequence() {
+  const success = await requestMicrophone();
+  volumeHud.hidden = false;
 
-  // Try to play background music
-  try {
-    await backgroundMusic.play();
-  } catch (err) {
-    console.log('Background music requires user interaction');
-  }
-
-  if (!audioContext) {
-    const success = await requestMicrophone();
-    if (!success) {
-      return;
-    }
+  if (!success) {
+    // If mic fails, they must allow permissions. They can no longer bypass by tapping.
+    volumeText.innerHTML = 'Mic access denied.<br><b>Please refresh and allow mic access to blow out the candle!</b>';
+    volumeFill.style.width = '0%';
+    volumeFill.style.background = '#f43f5e';
+    return;
   }
 
   hasCelebrated = false;
-  volumeIndicator.hidden = false; // Show volume indicator after clicking cake
-  startButton.hidden = true; // Hide the start button completely
-  startButton.textContent = 'Listening... blow the candle!';
-
   listenForBlow();
 }
 
 async function requestMicrophone() {
   try {
-    if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    if (location.protocol !== 'https:' && !isLocal) {
       throw new Error('HTTPS_REQUIRED');
     }
 
-    stream = await navigator.mediaDevices.getUserMedia({ 
-      audio: {
-        echoCancellation: false,
-        noiseSuppression: false,
-        autoGainControl: false
-      }
-    });
-    
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
     
     if (audioContext.state === 'suspended') {
@@ -117,74 +151,54 @@ async function requestMicrophone() {
     
     microphone = audioContext.createMediaStreamSource(stream);
     analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
-    analyser.smoothingTimeConstant = 0.3;
+    analyser.fftSize = 512;
+    analyser.smoothingTimeConstant = 0.05;
     microphone.connect(analyser);
     
     errorMessage.hidden = true;
     return true;
   } catch (error) {
-    console.error('Microphone error:', error);
-    let errorMsg = 'Could not access microphone. ';
-    
-    if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
-      errorMsg += 'Please allow microphone access and try again.';
-    } else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') {
-      errorMsg += 'No microphone found. Please connect a microphone.';
-    } else if (error.message === 'HTTPS_REQUIRED') {
-      errorMsg += 'This app requires HTTPS or localhost. For local testing, use: python3 -m http.server (then visit http://localhost:8000)';
-    } else {
-      errorMsg += error.message || 'Unknown error occurred.';
-    }
-    
-    errorMessage.textContent = errorMsg;
+    console.warn('Microphone error:', error);
+    errorMessage.textContent = "Mic disabled. Please allow mic access!";
     errorMessage.hidden = false;
-    startButton.textContent = 'Try again';
-    startButton.disabled = false;
-    startButton.classList.add('button--error');
     return false;
   }
 }
 
+// --- MICROPHONE BLOW LOGIC --- //
 function computeVolume() {
+  if (!analyser) return 0;
   const data = new Uint8Array(analyser.fftSize);
   analyser.getByteTimeDomainData(data);
   let sum = 0;
-  for (let i = 0; i < data.length; i += 1) {
+  for (let i = 0; i < data.length; i++) {
     const sample = data[i] / 128 - 1;
     sum += sample * sample;
   }
   const rms = Math.sqrt(sum / data.length);
-  return Math.min(rms * 2, 1);
+  return Math.min(rms * 4.5, 1);
 }
 
-let holdTimer = null;
-
 function listenForBlow() {
-  if (!analyser) return;
+  if (!analyser || hasCelebrated) return;
 
   const volume = computeVolume();
   const isBlowing = volume > BLOW_THRESHOLD;
-
-  // Update visual feedback
   const volumePercent = Math.min(volume * 100, 100);
-  volumeFill.style.width = `${volumePercent}%`;
   
+  volumeFill.style.width = `${volumePercent}%`;
+
   if (volumePercent < 20) {
-    volumeText.textContent = 'Blow gently toward your microphone...';
-  } else if (volumePercent < 50) {
-    volumeText.textContent = 'Keep blowing! 💨';
-  } else if (volumePercent < 80) {
-    volumeText.textContent = 'Almost there! Blow harder! 🔥';
+    volumeText.textContent = 'Blow gently toward your microphone... 💨';
+  } else if (volumePercent < 60) {
+    volumeText.textContent = 'Keep blowing! 🔥';
   } else {
     volumeText.textContent = 'Great! Hold it... 🎂';
   }
 
   if (isBlowing && !holdTimer) {
     holdTimer = setTimeout(triggerCelebration, HOLD_DURATION);
-  }
-
-  if (!isBlowing && holdTimer) {
+  } else if (!isBlowing && holdTimer) {
     clearTimeout(holdTimer);
     holdTimer = null;
   }
@@ -192,351 +206,139 @@ function listenForBlow() {
   animationFrame = requestAnimationFrame(listenForBlow);
 }
 
+// --- CELEBRATION TRANSITION --- //
 function triggerCelebration() {
   if (hasCelebrated) return;
   hasCelebrated = true;
 
-  // Stop listening
-  cancelAnimationFrame(animationFrame);
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
+  if (animationFrame) cancelAnimationFrame(animationFrame);
+  if (stream) stream.getTracks().forEach(track => track.stop());
+  if (rainTimer) {
+    clearInterval(rainTimer);
+    rainTimer = null;
   }
+  confettiParticles = [];
+  const confettiCanvas = document.getElementById('confettiCanvas');
+  if (confettiCanvas) confettiCanvas.getContext('2d').clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
 
-  // Hide initial screen
-  initialScreen.style.opacity = '0';
+  candleFlame.classList.remove('active');
+  volumeHud.style.opacity = '0';
+
   setTimeout(() => {
-    initialScreen.hidden = true;
-    
-    // Show celebration screen
-    celebrationScreen.hidden = false;
-    celebrationScreen.style.opacity = '0';
+    initialScreen.style.opacity = '0';
     setTimeout(() => {
-      celebrationScreen.style.opacity = '1';
-      
-      // Attach letter click handler AFTER celebration screen is shown
-      attachLetterClickHandler();
-    }, 50);
-  }, 800);
-
-  // Play celebration sound
-  const wish = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_7c90ed2050.mp3');
-  wish.volume = 0.5;
-  wish.play().catch((err) => {
-    console.log('Celebration sound failed:', err);
-  });
-
-  // Re-enable button for another try (hidden in celebration screen)
-  setTimeout(() => {
-    startButton.disabled = false;
-    startButton.textContent = 'Start again';
-    startButton.classList.remove('button--error');
-    audioContext = null;
-  }, 3000);
-}
-
-// Function to attach letter click handler
-function attachLetterClickHandler() {
-  const handwrittenLetter = document.getElementById('handwrittenLetter');
-  const letterTeaser = document.getElementById('letterTeaser');
-  const letterMessage = document.getElementById('letterMessage');
-
-  console.log('Attaching letter click handler');
-  console.log('Letter element:', handwrittenLetter);
-  console.log('Letter teaser:', letterTeaser);
-  console.log('Letter message:', letterMessage);
-
-  if (handwrittenLetter) {
-    // Remove any existing listener first
-    handwrittenLetter.replaceWith(handwrittenLetter.cloneNode(true));
-    const newLetter = document.getElementById('handwrittenLetter');
-    
-    newLetter.addEventListener('click', (e) => {
-      e.stopPropagation();
-      console.log('Letter clicked!');
-      
-      const teaser = document.getElementById('letterTeaser');
-      const message = document.getElementById('letterMessage');
-      
-      if (teaser && message) {
-        if (message.hidden) {
-          // Show the message
-          console.log('Expanding letter...');
-          teaser.hidden = true;
-          message.hidden = false;
-          newLetter.classList.add('letter-expanded');
-        } else {
-          // Hide the message
-          console.log('Collapsing letter...');
-          teaser.hidden = false;
-          message.hidden = true;
-          newLetter.classList.remove('letter-expanded');
-        }
-      }
-    });
-    
-    console.log('Letter click handler attached successfully!');
-  } else {
-    console.error('Letter element not found!');
-  }
-  
-  // Attach gift box click handler here after celebration screen is shown
-  const giftBox = document.getElementById('giftBox');
-  const pixelChicken = document.getElementById('pixelChicken');
-  const chickenNote = document.getElementById('chickenNote');
-
-  console.log('Attaching gift box click handler');
-  console.log('Gift box element:', giftBox);
-  console.log('Pixel chicken element:', pixelChicken);
-  console.log('Chicken note element:', chickenNote);
-
-  if (giftBox && pixelChicken && chickenNote) {
-    giftBox.addEventListener('click', (e) => {
-      e.stopPropagation();
-      console.log('Gift box clicked!');
-      
-      // Show chicken and note with animation
-      pixelChicken.hidden = false;
-      chickenNote.hidden = false;
-      
-      // Add appear animation classes
-      pixelChicken.classList.add('chicken-appear');
-      chickenNote.classList.add('note-appear');
-      
-      console.log('Chicken and note revealed!');
-    });
-    
-    console.log('Gift box click handler attached successfully!');
-  } else {
-    console.error('Gift box elements not found!');
-  }
-}
-
-let cardFlipCount = 0;
-
-function handleCardClick(e) {
-  e.stopPropagation();
-  
-  // First click: flip the card on table
-  if (cardFlipCount === 0) {
-    birthdayCard.classList.add('flipped');
-    cardFlipCount = 1;
-    return;
-  }
-  
-  // Second click: open zoomed modal
-  if (cardFlipCount === 1) {
-    cardModal.hidden = false;
-    const modalCard = cardModal.querySelector('.card-modal__card');
-    
-    // Start with current flip state, then show inside
-    if (birthdayCard.classList.contains('flipped')) {
-      modalCard.classList.add('flipped');
-    } else {
-      modalCard.classList.remove('flipped');
-      setTimeout(() => {
-        modalCard.classList.add('flipped');
-      }, 500);
-    }
-  }
-}
-
-// Add some interactivity to photo frames
-document.querySelectorAll('.photo-frame').forEach((frame, index) => {
-  frame.addEventListener('click', () => {
-    frame.style.animation = 'none';
-    setTimeout(() => {
-      frame.style.animation = 'photoShake 0.5s ease';
-    }, 10);
-  });
-});
-
-// Ensure photo images load and are visible; fallback to adi1 if missing
-document.querySelectorAll('.photo-frame__photo img').forEach((img) => {
-  // Force reload to ensure images are loaded
-  const originalSrc = img.src;
-  img.style.opacity = '0';
-  
-  img.addEventListener('load', () => {
-    console.log('Photo loaded successfully:', img.src);
-    img.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-    img.style.opacity = '1';
-    // ensure parent frame visible
-    const frame = img.closest('.photo-frame');
-    if (frame) {
-      frame.style.display = 'block';
-      frame.style.opacity = '1';
-    }
-  });
-  
-  img.addEventListener('error', () => {
-    console.error('Photo failed to load:', img.src);
-    console.warn('Trying fallback image...');
-    // Try different extensions
-    if (img.src.includes('.jpeg')) {
-      img.src = img.src.replace('.jpeg', '.jpg');
-    } else if (img.src.includes('.jpg')) {
-      img.src = 'photo/adi1.jpeg';
-    } else {
-      img.src = 'photo/adi1.jpeg';
-    }
-  });
-  
-  // Trigger load by setting src
-  if (originalSrc) {
-    img.src = originalSrc;
-  }
-});
-
-// Make the handwritten note clickable to open the letter (card modal)
-const handwrittenNote = document.querySelector('.handwritten-note');
-if (handwrittenNote) {
-  // Removed click handler - note is no longer linked
-  /*
-  handwrittenNote.addEventListener('click', (e) => {
-    e.stopPropagation();
-    // If celebration screen is hidden, transition to it
-    if (celebrationScreen.hidden) {
       initialScreen.hidden = true;
       celebrationScreen.hidden = false;
+      
+      // Force reflow
+      void celebrationScreen.offsetWidth;
       celebrationScreen.style.opacity = '1';
-    }
 
-    // Open the card modal showing the inside
-    if (cardModal) {
-      cardModal.hidden = false;
-      const modalCard = cardModal.querySelector('.card-modal__card');
-      if (modalCard) {
-        // show inside of the card
-        modalCard.classList.add('flipped');
-      }
-    }
-  });
-  */
+      if (backgroundMusic) backgroundMusic.volume = 0.7;
+      
+    }, 800);
+  }, 500);
 }
 
-// Add photo shake animation
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes photoShake {
-    0%, 100% { transform: rotate(0deg) translateY(0); }
-    25% { transform: rotate(-5deg) translateY(-5px); }
-    75% { transform: rotate(5deg) translateY(-5px); }
-  }
-`;
-document.head.appendChild(style);
+// --- PRO CANVAS CONFETTI ENGINE --- //
+let confettiParticles = [];
+let isConfettiRunning = false;
 
-// Create celebration particles on celebration screen
-function createCelebrationParticles() {
-  const celebScreen = document.querySelector('.screen--celebration');
-  if (!celebScreen) return;
-
-  // Create particles container
-  const particlesContainer = document.createElement('div');
-  particlesContainer.className = 'celebration-particles';
-  celebScreen.appendChild(particlesContainer);
-
-  // Create floating confetti particles
-  const particleTypes = ['circle', 'star', 'heart'];
-  const particleCount = 30;
-
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-    particle.className = `particle particle--${type}`;
-    
-    // Random positioning
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 8 + 's';
-    particle.style.animationDuration = (8 + Math.random() * 4) + 's';
-    
-    particlesContainer.appendChild(particle);
-  }
-
-  // Create light orbs
-  for (let i = 0; i < 3; i++) {
-    const orb = document.createElement('div');
-    orb.className = 'light-orb';
-    celebScreen.appendChild(orb);
-  }
-
-  // Create sparkles
-  const sparkleCount = 20;
-  for (let i = 0; i < sparkleCount; i++) {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.style.left = Math.random() * 100 + '%';
-    sparkle.style.top = Math.random() * 100 + '%';
-    sparkle.style.animationDelay = Math.random() * 3 + 's';
-    celebScreen.appendChild(sparkle);
-  }
+function startConfettiRain() {
+  if (rainTimer) return;
+  rainTimer = setInterval(() => addConfettiRain(12), 260);
+  addConfettiRain(36);
 }
 
-// Create initial screen particles
-function createInitialParticles() {
-  const initialScr = document.querySelector('.screen--initial');
-  if (!initialScr) return;
-
-  // Create particles container
-  const particlesContainer = document.createElement('div');
-  particlesContainer.className = 'initial-particles';
-  initialScr.appendChild(particlesContainer);
-
-  // Create floating particles
-  const particleTypes = ['star', 'circle', 'diamond'];
-  const particleCount = 25;
-
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-    particle.className = `floating-particle floating-particle--${type}`;
-    
-    // Random positioning
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 10 + 's';
-    particle.style.animationDuration = (10 + Math.random() * 5) + 's';
-    
-    particlesContainer.appendChild(particle);
-  }
-
-  // Create ambient orbs
-  for (let i = 1; i <= 3; i++) {
-    const orb = document.createElement('div');
-    orb.className = `ambient-orb ambient-orb--${i}`;
-    initialScr.appendChild(orb);
-  }
-
-  // Create twinkling stars
-  const starCount = 30;
-  for (let i = 0; i < starCount; i++) {
-    const star = document.createElement('div');
-    star.className = 'twinkle-star';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.animationDelay = Math.random() * 3 + 's';
-    initialScr.appendChild(star);
-  }
-}
-
-// Initialize celebration animations when celebration screen is shown
-const celebrationScreenElement = document.querySelector('.screen--celebration');
-if (celebrationScreenElement) {
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.attributeName === 'hidden') {
-        if (!celebrationScreenElement.hasAttribute('hidden')) {
-          // Screen is now visible
-          if (!celebrationScreenElement.querySelector('.celebration-particles')) {
-            createCelebrationParticles();
-          }
-        }
-      }
+function addConfettiRain(amount) {
+  const canvas = document.getElementById('confettiCanvas');
+  if (!canvas) return;
+  const colors = ['#f6d365', '#fda085', '#f472b6', '#c084fc', '#4ade80', '#fbbf24', '#ffffff'];
+  for (let i = 0; i < amount; i++) {
+    confettiParticles.push({
+      x: Math.random() * canvas.width,
+      y: -Math.random() * canvas.height,
+      r: Math.random() * 4 + 3,
+      dx: Math.random() * 1.4 - .7,
+      dy: Math.random() * 1.5 + 1.5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.floor(Math.random() * 10) - 10,
+      tiltAngleInc: (Math.random() * 0.06) + 0.03,
+      tiltAngle: Math.random() * Math.PI,
+      isRain: true
     });
-  });
-
-  observer.observe(celebrationScreenElement, { attributes: true });
-  
-  // Also check if it's already visible
-  if (!celebrationScreenElement.hasAttribute('hidden')) {
-    createCelebrationParticles();
+  }
+  if (!isConfettiRunning) {
+    isConfettiRunning = true;
+    renderConfetti(canvas.getContext('2d'), canvas);
   }
 }
+
+function fireConfetti(amount = 150) {
+  const canvas = document.getElementById("confettiCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#f6d365', '#fda085', '#f472b6', '#c084fc', '#4ade80', '#fbbf24', '#ffffff'];
+
+  for (let i = 0; i < amount; i++) {
+    confettiParticles.push({
+      x: canvas.width / 2,
+      y: canvas.height / 2 + 50,
+      r: Math.random() * 6 + 4,
+      dx: Math.random() * 26 - 13,
+      dy: Math.random() * -28 - 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.floor(Math.random() * 10) - 10,
+      tiltAngleInc: (Math.random() * 0.07) + 0.05,
+      tiltAngle: 0
+    });
+  }
+
+  if (!isConfettiRunning) {
+    isConfettiRunning = true;
+    renderConfetti(ctx, canvas);
+  }
+}
+
+function renderConfetti(ctx, canvas) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  for (let i = confettiParticles.length - 1; i >= 0; i--) {
+    let p = confettiParticles[i];
+    
+    p.tiltAngle += p.tiltAngleInc;
+    p.y += (Math.cos(p.tiltAngle) + 1 + p.r / 2) / 2;
+    p.x += Math.sin(p.tiltAngle) * 2;
+    if (!p.isRain) p.dy += 0.35;
+    p.y += p.dy;
+    p.x += p.dx + (p.isRain ? Math.sin(p.tiltAngle) * .4 : 0);
+
+    ctx.beginPath();
+    ctx.lineWidth = p.r;
+    ctx.strokeStyle = p.color;
+    ctx.moveTo(p.x + p.tilt + p.r, p.y);
+    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r);
+    ctx.stroke();
+
+    if (p.y > canvas.height + 20) {
+      confettiParticles.splice(i, 1);
+    }
+  }
+
+  if (confettiParticles.length > 0) {
+    requestAnimationFrame(() => renderConfetti(ctx, canvas));
+  } else {
+    isConfettiRunning = false;
+  }
+}
+
+window.addEventListener("resize", () => {
+  const canvas = document.getElementById("confettiCanvas");
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+});
