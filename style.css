@@ -41,9 +41,6 @@ body {
 
 /* HERO LAYOUT (PC Side-by-Side) */
 .hero-layout { display: grid; grid-template-columns: minmax(300px, .9fr) minmax(320px, 1.1fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: center; max-width: 1180px; width: 100%; z-index: 2; }
-.portrait-card { width: 100%; max-width: 320px; background: var(--glass-bg); backdrop-filter: blur(12px); padding: 1rem; border-radius: 24px; border: 1px solid var(--glass-border); transform: rotate(-3deg); transition: transform 0.4s ease; }
-.portrait-card:hover { transform: rotate(0deg) scale(1.02); }
-.portrait-card__inner img { width: 100%; border-radius: 16px; object-fit: cover; aspect-ratio: 4/5; }
 
 .cake-feature { position: relative; min-height: 520px; display: grid; place-items: center; align-content: center; }
 .cake-feature__halo { position: absolute; width: 390px; height: 390px; border-radius: 50%; background: radial-gradient(circle, rgba(246, 211, 101, .18), rgba(253, 160, 133, .06) 42%, transparent 70%); filter: blur(8px); animation: halo-pulse 4s ease-in-out infinite; }
@@ -209,7 +206,6 @@ body {
 .p-top-right { top: 36%; right: 10%; width: 12%; }
 .mini-bow { width: 40%; height: 20px; border: 1px solid #0b192c; background: #0b192c; border-radius: 50%; margin: 5px 0; opacity: 0.9;}
 
-/* FIXED: Smaller, Neatly Centered Photos */
 .p-bot-1 { top: 55%; left: 35%; width: 9%; }
 .p-bot-2 { top: 55%; left: 48%; width: 9%; }
 .p-bot-3 { top: 55%; left: 61%; width: 9%; }
@@ -221,22 +217,25 @@ body {
 .aes-table-surface { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 10%, #ffffff 0%, #b8c5d6 100%); border-radius: 50% 50% 0 0; box-shadow: inset 0 20px 30px rgba(255,255,255,0.8), 0 -10px 20px rgba(0,0,0,0.1); }
 .aes-table-runner { position: absolute; top: 0; left: 15%; width: 70%; height: 100%; background: rgba(11, 25, 44, 0.85); border-radius: 50% 50% 0 0; clip-path: polygon(23% 0, 77% 0, 100% 100%, 0% 100%); backdrop-filter: blur(2px); }
 
-/* FIXED: Larger Center Cake */
+/* Center Cake */
 .aes-center-cake { position: absolute; bottom: 42%; left: 50%; transform: translateX(-50%) scale(0.85); z-index: 12; display: flex; justify-content: center; pointer-events: none; }
 .cake-shadow { bottom: -20px; width: 240px; height: 25px; filter: blur(8px); background: rgba(5, 10, 20, 0.5); }
 
-/* FIXED: Modern 3-Pillar Candle Cluster (Replaces old candelabra) */
+/* Right Candelabra */
 .aes-candelabra { position: absolute; top: 12%; right: 8%; width: 25%; height: 55%; z-index: 5; display: flex; justify-content: center; }
 .candelabra-shadow { bottom: -5px; width: 40%; height: 15px; }
+.candelabra .arm { position: absolute; top: 50%; width: 45%; height: 20%; border-bottom: 4px solid #94a3b8; }
+.left-arm { left: 5%; border-left: 4px solid #94a3b8; border-radius: 0 0 0 20px; }
+.right-arm { right: 5%; border-right: 4px solid #94a3b8; border-radius: 0 0 20px 0; }
+.stem { position: absolute; top: 40%; width: 4%; height: 60%; background: #e2e8f0; }
 
-.tall-candle { position: absolute; width: 12%; background: linear-gradient(90deg, #e2e8f0, #ffffff, #cbd5e1); border-radius: 4px 4px 2px 2px; box-shadow: 2px 5px 10px rgba(0,0,0,0.3); }
+.tall-candle { position: absolute; width: 10%; height: 40%; background: linear-gradient(90deg, #f1f5f9, #ffffff, #cbd5e1); border-radius: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
 .tall-candle::before { content: ''; position: absolute; top: -4px; left: 50%; margin-left: -1px; width: 2px; height: 4px; background: #333; } 
 .tall-flame { position: absolute; top: -24px; left: 50%; margin-left: -6px; width: 12px; height: 22px; background: #fffbd0; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px #ffc84d, 0 0 20px #ef8b42; animation: flame-flicker 0.15s infinite alternate; }
 
-/* Proper Front/Back Triangulation Layout */
 .c-left { bottom: 10%; height: 50%; left: 15%; }
 .c-right { bottom: 10%; height: 50%; right: 15%; }
-.c-center { bottom: 0%; height: 40%; left: 44%; z-index: 5; width: 14%; } /* Slightly thicker and totally in front! */
+.c-center { bottom: 0%; height: 40%; left: 44%; z-index: 5; width: 14%; } 
 
 
 /* ====================================================
@@ -248,7 +247,6 @@ body {
 .basket-front { position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background-color: #cda87a; background-image: linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52), linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52); background-size: 20px 20px; background-position: 0 0, 10px 10px; border-radius: 5px 5px 20px 20px; border-top: 8px solid #8e6236; box-shadow: inset 0 10px 15px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.5); z-index: 30; pointer-events: none; }
 .basket-back { position: absolute; bottom: 15%; left: 5%; width: 90%; height: 50%; background: #966b42; border-radius: 10px; box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5); z-index: 5; }
 
-/* FIXED: Memory Book moved rightwards inside basket */
 .aes-memory-book { position: absolute; bottom: 20%; left: 12%; width: 28%; aspect-ratio: 4/3.5; background: transparent; border: none; cursor: pointer; z-index: 10; padding: 0; outline: none; transition: transform 0.3s ease; transform: rotate(-5deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 .aes-memory-book:hover { transform: scale(1.05) rotate(-2deg); z-index: 25; }
 
@@ -275,8 +273,7 @@ body {
 .photo-wrap { background: #fff; padding: 8px 8px 25px 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 .photo-wrap img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid #eee; }
 
-/* 2. Green Plaid Gift Box */
-.aes-gift-setup { position: absolute; bottom: 18%; right: 8%; width: 22%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
+.aes-gift-setup { position: absolute; bottom: 15%; right: 5%; width: 25%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
 .aes-plaid-box { width: 100%; height: 80%; position: absolute; bottom: 0; cursor: pointer; transition: transform 0.3s ease; }
 .aes-plaid-box:hover { transform: scale(1.05) translateY(-5px); }
 
@@ -301,7 +298,6 @@ body {
 .aes-plaid-box.open .pixel-chicken { transform: translateY(0px); }
 .speech-bubble { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #ffffff; color: #000; padding: 5px 10px; border-radius: 10px; font-family: var(--font-hand); font-size: 1rem; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-/* 3. The 3D Rustic Card */
 .aes-3d-card { position: absolute; bottom: 15%; left: 38%; width: 28%; aspect-ratio: 3.5/5; z-index: 15; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; transform: perspective(800px) rotateX(10deg) rotateZ(3deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 .aes-3d-card:hover { transform: perspective(800px) rotateX(0deg) rotateZ(0deg) scale(1.1) translateY(-10px); z-index: 25; }
 
@@ -347,32 +343,31 @@ body {
 .letter-content p { margin-bottom: 15px; }
 .letter-signature { text-align: right; margin-top: 30px; font-size: 1.5rem; color: #0b192c; font-weight: bold; }
 
-/* Mobile Adjustments */
+/* Mobile Adjustments (FIXED: Tightly Anchored to Bottom Table) */
 @media (max-width: 768px) {
   .aes-wrapper { aspect-ratio: auto; height: 100vh; max-width: 100vw; border-radius: 0; }
-  .aes-table { inset: 65% -5% 0 -5%; }
   
-  /* Centered Wall Text */
-  .aes-wall-text { top: 32%; left: 0; width: 100%; text-align: center; font-size: clamp(3.5rem, 15vw, 5rem); }
+  /* Lock table firmly to bottom 35% of screen to prevent tall stretching */
+  .aes-table { top: auto; bottom: -5%; height: 35%; left: -5%; right: -5%; }
   
-  /* Aligned and Resized Polaroids */
-  .p-top-left { top: 43%; left: 10%; width: 18%; }
-  .p-top-right { top: 41%; right: 5%; width: 20%; }
-  .p-bot-1 { top: 48%; left: 30%; width: 11%; }
-  .p-bot-2 { top: 48%; left: 45%; width: 11%; }
-  .p-bot-3 { top: 48%; left: 60%; width: 11%; }
+  .aes-wall-text { top: 25%; left: 0; width: 100%; text-align: center; font-size: clamp(3.5rem, 15vw, 5rem); }
   
-  /* Larger Cake */
-  .aes-center-cake { transform: translateX(-50%) scale(0.85); bottom: 30%; }
+  /* Photos neatly aligned under text */
+  .p-top-left { top: 38%; left: 10%; width: 16%; }
+  .p-top-right { top: 36%; right: 5%; width: 18%; }
+  .p-bot-1 { top: 45%; left: 30%; width: 11%; }
+  .p-bot-2 { top: 45%; left: 45%; width: 11%; }
+  .p-bot-3 { top: 45%; left: 60%; width: 11%; }
   
-  /* Repositioned Candelabra Block */
-  .aes-candelabra { bottom: 25%; height: 35%; right: 6%; width: 25%; top: auto; }
+  /* Cake securely anchored to table */
+  .aes-center-cake { transform: translateX(-50%) scale(0.85); bottom: 25%; }
+  .aes-candelabra { bottom: 20%; height: 35%; right: 6%; width: 25%; top: auto; }
   
-  /* Beautifully Nested Basket Cluster */
-  .aes-basket-cluster { left: 0%; width: 60%; bottom: 8%; height: 22%; }
-  .aes-memory-book { left: 8%; width: 30%; bottom: 22%; }
-  .aes-3d-card { left: 35%; width: 30%; bottom: 16%; transform: perspective(800px) rotateX(55deg) rotateZ(-10deg); }
-  .aes-gift-setup { right: 5%; width: 25%; bottom: 18%; }
+  /* Basket explicitly anchored relative to the fixed table height */
+  .aes-basket-cluster { left: 0%; width: 60%; bottom: 5%; height: 25%; }
+  .aes-memory-book { left: 8%; width: 28%; bottom: 20%; }
+  .aes-3d-card { left: 36%; width: 30%; bottom: 15%; transform: perspective(800px) rotateX(55deg) rotateZ(-10deg); }
+  .aes-gift-setup { right: 5%; width: 26%; bottom: 20%; }
   
   .aes-3d-card.expanded { width: 95%; height: 85vh; flex-direction: column; }
   .inside-left { flex: 0 0 20%; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); border-bottom: 2px dashed #94a3b8; }
