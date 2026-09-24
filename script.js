@@ -13,26 +13,9 @@ const wishMessage = document.getElementById('wishMessage');
 const partyCat = document.getElementById('partyCat');
 const memoryAlbum = document.getElementById('memoryAlbum');
 const albumPages = document.getElementById('albumPages');
-const albumPhotos = [
-  '1.jpeg', '10.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg',
-  'Screen Shot 2026-09-23 at 11.35.50 PM.png', 'Screen Shot 2026-09-23 at 11.37.05 PM.png',
-  'Screen Shot 2026-09-23 at 11.37.27 PM.png', 'Screen Shot 2026-09-23 at 11.37.40 PM.png',
-  'Screen Shot 2026-09-23 at 11.37.58 PM.png', 'Screen Shot 2026-09-23 at 11.38.15 PM.png',
-  'Screen Shot 2026-09-23 at 11.38.27 PM.png', 'Screen Shot 2026-09-23 at 11.38.36 PM.png',
-  'Screen Shot 2026-09-23 at 11.38.44 PM.png', 'Screen Shot 2026-09-23 at 11.38.54 PM.png',
-  'Screen Shot 2026-09-23 at 11.39.01 PM.png', 'Screen Shot 2026-09-23 at 11.39.08 PM.png',
-  'Screen Shot 2026-09-23 at 11.39.20 PM.png', 'Screen Shot 2026-09-23 at 11.39.34 PM.png',
-  'Screen Shot 2026-09-23 at 11.39.55 PM.png', 'Screen Shot 2026-09-23 at 11.40.04 PM.png',
-  'Screen Shot 2026-09-23 at 11.40.22 PM.png', 'Screen Shot 2026-09-23 at 11.40.46 PM.png',
-  'Screen Shot 2026-09-23 at 11.40.55 PM.png', 'Screen Shot 2026-09-23 at 11.41.02 PM.png',
-  'Screen Shot 2026-09-23 at 11.41.09 PM.png', 'Screen Shot 2026-09-23 at 11.41.20 PM.png',
-  'Screen Shot 2026-09-23 at 11.41.30 PM.png', 'Screen Shot 2026-09-23 at 11.41.36 PM.png',
-  'Screen Shot 2026-09-23 at 11.41.45 PM.png', 'Screen Shot 2026-09-23 at 11.42.11 PM.png',
-  'Screen Shot 2026-09-23 at 11.42.22 PM.png', 'Screen Shot 2026-09-23 at 11.42.37 PM.png',
-  'Screen Shot 2026-09-23 at 11.42.52 PM.png', 'Screen Shot 2026-09-23 at 11.43.05 PM.png',
-  'Screen Shot 2026-09-23 at 11.43.15 PM.png', 'Screen Shot 2026-09-23 at 11.45.12 PM.png',
-  'adi6.jpeg', 'fi.png', 'fi2.jpeg', 'fi3.jpeg', 'fiadd.png'
-];
+
+// Dynamically generate the 40 photos for the memory book
+const albumPhotos = Array.from({length: 40}, (_, i) => `${i + 1}.jpeg`);
 
 // Audio Context Variables
 let audioContext;
@@ -84,11 +67,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Memory Book Handler
   if (memoryAlbum && albumPages) {
-    albumPages.innerHTML = albumPhotos.map((photo, index) => `<img src="${encodeURI(`photo/${photo}`)}" alt="Memory ${index + 1}" loading="lazy">`).join('');
+    // Generate the photo grid wrappers
+    albumPages.innerHTML = albumPhotos.map((photo) => `
+      <div class="photo-wrap">
+        <img src="${encodeURI(`photo/${photo}`)}" onerror="this.src='photo/fi.png'" alt="Memory" loading="lazy">
+      </div>
+    `).join('');
+    
     memoryAlbum.addEventListener('click', () => {
-      const isOpen = memoryAlbum.classList.toggle('album-open');
-      memoryAlbum.setAttribute('aria-expanded', String(isOpen));
+      const isOpen = memoryAlbum.classList.toggle('expanded');
+      
+      // If expanded, show the pages. If closed, hide them.
+      if(isOpen) {
+        albumPages.style.display = 'grid';
+      } else {
+        setTimeout(() => { albumPages.style.display = 'none'; }, 300); // Wait for transition
+      }
     });
   }
 });
@@ -116,7 +112,6 @@ function handleCakeClick() {
     // 4. Start the microphone to listen for the blow
     startMicSequence();
   }
-  // BUG FIX: Removed the "else" block. Tapping the cake again does nothing now!
 }
 
 async function startMicSequence() {
