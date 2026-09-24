@@ -22,9 +22,7 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .screen--initial::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 18% 45%, rgba(246, 211, 101, .16), transparent 24%), radial-gradient(circle at 88% 20%, rgba(196, 181, 253, .14), transparent 24%); z-index: -1; pointer-events: none; }
 .screen[hidden] { display: none !important; opacity: 0; }
 
-/* HERO LAYOUT (PC Side-by-Side) */
 .hero-layout { display: grid; grid-template-columns: minmax(300px, .9fr) minmax(320px, 1.1fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: center; max-width: 1180px; width: 100%; z-index: 2; }
-
 .cake-feature { position: relative; min-height: 520px; display: grid; place-items: center; align-content: center; }
 .cake-feature__halo { position: absolute; width: 390px; height: 390px; border-radius: 50%; background: radial-gradient(circle, rgba(246, 211, 101, .18), rgba(253, 160, 133, .06) 42%, transparent 70%); filter: blur(8px); animation: halo-pulse 4s ease-in-out infinite; }
 .cake-feature__eyebrow { position: absolute; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(248, 250, 252, .62); top: 10%; }
@@ -41,7 +39,6 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .party-cat--visible::after { animation: cat-popper-trail .8s .35s ease-out forwards; }
 
 .handwritten-note--after-click { position: absolute; bottom: -5%; left: 50%; z-index: 3; width: min(90%, 370px); transform: translateX(-50%) translateY(12px); text-align: center; color: #fff1d6; opacity: 0; animation: note-rise .65s ease-out forwards; }
-
 .cake-sparkle { position: absolute; color: var(--accent-gold); font-size: 1.4rem; animation: sparkle 2.4s ease-in-out infinite; }
 .cake-sparkle--one { top: 18%; left: 12%; }
 .cake-sparkle--two { right: 10%; bottom: 28%; animation-delay: 1s; }
@@ -138,18 +135,17 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 ========================================= */
 .screen--celebration { background: #020617; padding: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 
-/* NEW: Global Backdrop Overlay */
+/* FIXED: OVERLAY AND CLOSE BUTTONS */
 .overlay-backdrop {
-  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.7); backdrop-filter: blur(5px);
+  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.75); backdrop-filter: blur(6px);
   z-index: 900; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
 }
 .overlay-backdrop.active { opacity: 1; pointer-events: auto; }
 
-/* NEW: Standard Close Button for Modals */
 .close-btn {
-  position: absolute; top: -15px; right: -15px; width: 35px; height: 35px;
-  background: #ef4444; color: white; border: 3px solid #fff; border-radius: 50%;
-  font-size: 1rem; font-weight: bold; cursor: pointer; z-index: 1001;
+  position: absolute; top: 10px; right: 10px; width: 35px; height: 35px;
+  background: #ef4444; color: white; border: 2px solid #fff; border-radius: 50%;
+  font-size: 1.2rem; font-weight: bold; cursor: pointer; z-index: 1001;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: background 0.2s, transform 0.2s;
 }
@@ -167,12 +163,6 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .garland-string { position: absolute; top: 10px; width: 100%; height: 100px; border-top: 1.5px dashed #94a3b8; border-radius: 50%; opacity: 0.6; }
 .garland-star { position: absolute; color: #cbd5e1; font-size: 1.2rem; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1)); }
 .g1 { top: 0; left: 15%; } .g2 { top: 15px; left: 40%; font-size: 0.8rem; } .g3 { top: -5px; left: 65%; } .g4 { top: 10px; left: 85%; font-size: 0.9rem; }
-
-.aes-wall-text { position: relative; font-family: var(--font-hand); font-size: clamp(3.5rem, 10cqw, 4.5rem); line-height: 1; color: #0b192c; text-shadow: 2px 3px 5px rgba(0,0,0,0.1); transform: rotate(-3deg); font-weight: 700; text-align: center; margin-bottom: 25px; pointer-events: none; }
-.aes-wall-center { position: absolute; top: 22%; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; z-index: 5; pointer-events: none; }
-.aes-photo-row { display: flex; justify-content: center; gap: 6%; width: 100%; max-width: 350px; }
-.aes-photo-row .aes-polaroid { position: relative; width: 25%; padding: 4px 4px 12px 4px; box-shadow: 0 5px 10px rgba(0,0,0,0.15); background: #ffffff; display: flex; flex-direction: column; align-items: center; pointer-events: auto;}
-.aes-photo-row .aes-polaroid > span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: #0b192c; font-size: 1.5rem; text-shadow: 0 2px 2px rgba(0,0,0,0.2); z-index: 5; }
 
 .aes-balloons { position: absolute; top: -5%; right: 10%; width: 60%; height: 35%; z-index: 5; }
 .aes-balloon { position: absolute; width: 22%; padding-bottom: 26%; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; box-shadow: inset -5px -5px 15px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.15); }
@@ -196,6 +186,13 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .aes-bow-tail.left { left: 22%; transform: rotate(5deg); }
 .aes-bow-tail.right { left: 42%; transform: rotate(-8deg); background: #070e1a; }
 .aes-top-ribbon { position: absolute; top: 9%; left: 0; right: 0; height: 4%; background: #0b192c; z-index: 1; box-shadow: 0 5px 10px rgba(0,0,0,0.2); }
+
+.aes-wall-center { position: absolute; top: 22%; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; z-index: 5; pointer-events: none; }
+.aes-wall-text { font-family: var(--font-hand); font-size: clamp(3.5rem, 10cqw, 4.5rem); line-height: 1; color: #0b192c; text-shadow: 2px 3px 5px rgba(0,0,0,0.1); transform: rotate(-3deg); font-weight: 700; text-align: center; margin-bottom: 25px; pointer-events: none;}
+
+.aes-photo-row { display: flex; justify-content: center; gap: 6%; width: 100%; max-width: 350px; }
+.aes-photo-row .aes-polaroid { position: relative; width: 25%; padding: 4px 4px 12px 4px; box-shadow: 0 5px 10px rgba(0,0,0,0.15); background: #ffffff; display: flex; flex-direction: column; align-items: center; pointer-events: auto;}
+.aes-photo-row .aes-polaroid > span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: #0b192c; font-size: 1.5rem; text-shadow: 0 2px 2px rgba(0,0,0,0.2); z-index: 5; }
 
 .aes-polaroids { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .aes-polaroid { position: absolute; background: #ffffff; padding: 4px 4px 12px 4px; box-shadow: 0 5px 10px rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: auto; }
@@ -227,20 +224,17 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .tall-candle { position: absolute; width: 10%; height: 40%; background: linear-gradient(90deg, #f1f5f9, #ffffff, #cbd5e1); border-radius: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
 .tall-candle::before { content: ''; position: absolute; top: -4px; left: 50%; margin-left: -1px; width: 2px; height: 4px; background: #333; } 
 .tall-flame { position: absolute; top: -24px; left: 50%; margin-left: -6px; width: 12px; height: 22px; background: #fffbd0; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px #ffc84d, 0 0 20px #ef8b42; animation: flame-flicker 0.15s infinite alternate; }
+
 .c-left { bottom: 10%; height: 50%; left: 15%; }
 .c-right { bottom: 10%; height: 50%; right: 15%; }
 .c-center { bottom: 0%; height: 40%; left: 44%; z-index: 5; width: 14%; } 
 
-
-/* ====================================================
-   LEFT CLUSTER: Woven Basket with Gifts
-==================================================== */
+/* Woven Basket */
 .aes-basket-cluster { position: absolute; bottom: 10%; left: 6%; width: 38%; height: 28%; z-index: 15; }
 .basket-floor-shadow { bottom: -10%; left: 5%; width: 90%; height: 20px; background: rgba(5,10,20,0.5); filter: blur(8px); }
 .basket-front { position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background-color: #cda87a; background-image: linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52), linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52); background-size: 20px 20px; background-position: 0 0, 10px 10px; border-radius: 5px 5px 20px 20px; border-top: 8px solid #8e6236; box-shadow: inset 0 10px 15px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.5); z-index: 30; pointer-events: none; }
 .basket-back { position: absolute; bottom: 15%; left: 5%; width: 90%; height: 50%; background: #966b42; border-radius: 10px; box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5); z-index: 5; }
 
-/* 1. Memory Book */
 .aes-memory-book { position: absolute; bottom: 20%; left: 12%; width: 28%; aspect-ratio: 4/3.5; background: transparent; border: none; cursor: pointer; z-index: 10; padding: 0; outline: none; transition: transform 0.3s ease; transform: rotate(-5deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 .aes-memory-book:hover { transform: scale(1.05) rotate(-2deg); z-index: 25; }
 
@@ -260,7 +254,6 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .tie-loop-top { position: absolute; top: 0; right: -15px; width: 25px; height: 15px; background: #111; border-radius: 50%; transform: rotate(30deg); box-shadow: inset 0 0 5px rgba(0,0,0,0.8); }
 .tie-loop-bot { position: absolute; bottom: 0; right: -15px; width: 25px; height: 15px; background: #111; border-radius: 50%; transform: rotate(-30deg); box-shadow: inset 0 0 5px rgba(0,0,0,0.8); }
 
-/* NEW: Memory Book Expanded */
 .book-inside-wrapper { position: absolute; top: -200%; left: 0; background: #ffffff; padding: 15px; border-radius: 8px; box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 30; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 .aes-memory-book.expanded { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0) !important; width: 90%; max-width: 900px; height: 80vh; z-index: 1000; cursor: default; filter: none; }
 .aes-memory-book.expanded .book-cover-closed { display: none; }
@@ -269,7 +262,28 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .photo-wrap { background: #fff; padding: 8px 8px 25px 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 .photo-wrap img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid #eee; }
 
-/* 2. The 3D Rustic Card */
+.aes-gift-setup { position: absolute; bottom: 15%; right: 5%; width: 25%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
+.aes-gift-setup.expanded { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) !important; z-index: 1000; bottom: auto; right: auto; width: 150px; }
+
+.aes-plaid-box { width: 100%; height: 80%; position: absolute; bottom: 0; cursor: pointer; transition: transform 0.3s ease; }
+.aes-plaid-box:hover { transform: scale(1.05) translateY(-5px); }
+
+.plaid-pattern { background-color: #27402f; background-image: repeating-linear-gradient(transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px), repeating-linear-gradient(transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px), repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px), repeating-linear-gradient(transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px), repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px); }
+.box-body { position: absolute; bottom: 0; width: 100%; height: 75%; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); }
+.box-flap { position: absolute; top: 0; width: 50%; height: 25%; box-shadow: inset 0 0 10px rgba(0,0,0,0.4); transition: transform 0.4s ease; }
+.left-flap { left: 0; clip-path: polygon(0 100%, 100% 0, 100% 100%); transform-origin: bottom left; }
+.right-flap { right: 0; clip-path: polygon(0 0, 100% 100%, 0 100%); transform-origin: bottom right; background-color: #1e3325; }
+
+.white-gold-bow { position: absolute; top: -15%; left: 10%; width: 80%; height: 35%; z-index: 5; transition: transform 0.4s ease, opacity 0.4s ease; }
+.bow-loop-l, .bow-loop-r { position: absolute; top: 0; width: 55%; height: 100%; background: #fdfdfd; border: 2px dashed #d4af37; border-radius: 50% 50% 10% 10%; box-shadow: inset 0 0 5px rgba(0,0,0,0.1), 0 5px 5px rgba(0,0,0,0.2); }
+.bow-loop-l { left: -5%; transform: rotate(-25deg); }
+.bow-loop-r { right: -5%; transform: rotate(25deg); }
+.bow-center { position: absolute; top: 30%; left: 40%; width: 20%; height: 40%; background: #fdfdfd; border: 2px dashed #d4af37; border-radius: 4px; z-index: 2; }
+
+.aes-plaid-box.open .left-flap { transform: rotateY(-90deg) scaleX(0.1); }
+.aes-plaid-box.open .right-flap { transform: rotateY(90deg) scaleX(0.1); }
+.aes-plaid-box.open .white-gold-bow { transform: translateY(-30px); opacity: 0; pointer-events: none; }
+
 .aes-3d-card { position: absolute; bottom: 15%; left: 38%; width: 28%; aspect-ratio: 3.5/5; z-index: 15; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; transform: perspective(800px) rotateX(10deg) rotateZ(3deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 .aes-3d-card:hover { transform: perspective(800px) rotateX(0deg) rotateZ(0deg) scale(1.1) translateY(-10px); z-index: 25; }
 
@@ -315,54 +329,22 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 .letter-content p { margin-bottom: 15px; }
 .letter-signature { text-align: right; margin-top: 30px; font-size: 1.5rem; color: #0b192c; font-weight: bold; }
 
-/* 3. Green Plaid Gift Box */
-.aes-gift-setup { position: absolute; bottom: 15%; right: 5%; width: 25%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
-/* NEW: Centers the box itself when expanded */
-.aes-gift-setup.expanded { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) !important; z-index: 1000; bottom: auto; right: auto; width: 150px; }
-
-.aes-plaid-box { width: 100%; height: 80%; position: absolute; bottom: 0; cursor: pointer; transition: transform 0.3s ease; }
-.aes-plaid-box:hover { transform: scale(1.05) translateY(-5px); }
-
-.plaid-pattern { background-color: #27402f; background-image: repeating-linear-gradient(transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px), repeating-linear-gradient(transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px), repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px), repeating-linear-gradient(transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px), repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px); }
-.box-body { position: absolute; bottom: 0; width: 100%; height: 75%; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); }
-.box-flap { position: absolute; top: 0; width: 50%; height: 25%; box-shadow: inset 0 0 10px rgba(0,0,0,0.4); transition: transform 0.4s ease; }
-.left-flap { left: 0; clip-path: polygon(0 100%, 100% 0, 100% 100%); transform-origin: bottom left; }
-.right-flap { right: 0; clip-path: polygon(0 0, 100% 100%, 0 100%); transform-origin: bottom right; background-color: #1e3325; }
-
-.white-gold-bow { position: absolute; top: -15%; left: 10%; width: 80%; height: 35%; z-index: 5; transition: transform 0.4s ease, opacity 0.4s ease; }
-.bow-loop-l, .bow-loop-r { position: absolute; top: 0; width: 55%; height: 100%; background: #fdfdfd; border: 2px dashed #d4af37; border-radius: 50% 50% 10% 10%; box-shadow: inset 0 0 5px rgba(0,0,0,0.1), 0 5px 5px rgba(0,0,0,0.2); }
-.bow-loop-l { left: -5%; transform: rotate(-25deg); }
-.bow-loop-r { right: -5%; transform: rotate(25deg); }
-.bow-center { position: absolute; top: 30%; left: 40%; width: 20%; height: 40%; background: #fdfdfd; border: 2px dashed #d4af37; border-radius: 4px; z-index: 2; }
-
-/* Box Open Animations */
-.aes-plaid-box.open .left-flap { transform: rotateY(-90deg) scaleX(0.1); }
-.aes-plaid-box.open .right-flap { transform: rotateY(90deg) scaleX(0.1); }
-.aes-plaid-box.open .white-gold-bow { transform: translateY(-30px); opacity: 0; pointer-events: none; }
-
-
-/* ====================================================
-   NEW: THE CSS ART SQUAD "DISPLAY CARD" 
-==================================================== */
-.pixel-chicken { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 30; pointer-events: none; }
-
-/* The Clean White Backdrop that pops up */
+/* The Clean White Backdrop that pops up for the Gift Box */
 .art-backdrop {
   position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%) scale(0);
   transform-origin: bottom center; width: 340px; height: 260px;
   background: #fdfbf7; border: 4px solid #cbd5e1; border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5); opacity: 0;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: -1;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; /* FIXED Z-INDEX */
   pointer-events: auto;
 }
 .aes-plaid-box.open .art-backdrop { transform: translateX(-50%) scale(1); opacity: 1; }
 
-/* Individual Art Items inside the Display Board */
-.art-item { position: absolute; transform: scale(0); opacity: 0; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s; }
+.pixel-chicken { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 30; pointer-events: none; }
+.art-item { position: absolute; transform: scale(0); opacity: 0; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s; z-index: 5; }
 
-/* Final Tightly Clustered Animations inside the white box */
 .aes-plaid-box.open .art-cat { top: 60px; left: 20px; transform: scale(1) rotate(-5deg); opacity: 1; transition-delay: 0.1s; animation: art-bounce 3s infinite alternate; }
-.aes-plaid-box.open .art-hen { top: 30px; left: 125px; transform: scale(1); opacity: 1; z-index: 5; transition-delay: 0.2s; animation: art-bounce 2.5s infinite alternate 0.2s; }
+.aes-plaid-box.open .art-hen { top: 30px; left: 125px; transform: scale(1); opacity: 1; z-index: 6; transition-delay: 0.2s; animation: art-bounce 2.5s infinite alternate 0.2s; }
 .aes-plaid-box.open .art-duck { top: 50px; right: 20px; transform: scale(1) rotate(5deg); opacity: 1; transition-delay: 0.3s; animation: art-bounce 3.2s infinite alternate 0.4s; }
 .aes-plaid-box.open .art-popper { bottom: 20px; right: 10px; transform: scale(1) rotate(-30deg); opacity: 1; transition-delay: 0.4s; z-index: 10;}
 
@@ -372,7 +354,6 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
 
 @keyframes art-bounce { 0% { transform: scale(1) translateY(0); } 100% { transform: scale(1) translateY(-10px); } }
 
-/* CSS Art Drawings (Unchanged) */
 .art-cat { width: 90px; height: 90px; }
 .cat-body { position: absolute; bottom: 0; left: 20px; width: 50px; height: 40px; background: #fff; border: 4px solid #111; border-radius: 50% 50% 10px 10px; z-index: 2; }
 .cat-paw { position: absolute; bottom: -4px; width: 15px; height: 10px; background: #fff; border: 4px solid #111; border-radius: 50%; }
@@ -448,7 +429,9 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
   100% { transform: translate(calc(20px * var(--rx)), var(--ry)) scale(0.5) rotate(360deg); opacity: 0; }
 }
 
-/* Mobile Adjustments */
+/* ====================================================
+   MOBILE RE-ALIGNMENT FIX (PERFECT LAYERING)
+==================================================== */
 @media (max-width: 768px) {
   .aes-wrapper { aspect-ratio: auto; height: 100vh; max-width: 100vw; border-radius: 0; }
   .aes-table { inset: auto -5% -2% -5%; height: 32%; }
@@ -469,12 +452,16 @@ body { background: var(--bg-deep); color: var(--text-primary); font-family: var(
   .aes-3d-card { left: 35%; width: 32%; bottom: 15%; transform: perspective(800px) rotateX(55deg) rotateZ(-10deg); }
   .aes-gift-setup { right: 2%; width: 28%; bottom: 20%; }
   
+  /* Open Letter Overlay on Mobile */
   .aes-3d-card.expanded { width: 95%; height: 85vh; flex-direction: column; }
   .inside-left { flex: 0 0 20%; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); border-bottom: 2px dashed #94a3b8; }
   .card-moon { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; box-shadow: inset 10px -8px 0 0 #f8fafc; }
   .star-line { display: none; }
-  .inside-right { padding: 20px; font-size: 1.1rem; }
-  .letter-content { font-size: 1.1rem; padding-right: 0; }
+  
+  /* FIXED: Added padding to letter text to prevent it from touching the edges */
+  .inside-right { padding: 15px 25px; font-size: 1.05rem; }
+  .letter-content { font-size: 1.05rem; padding-right: 0; }
+  
   .aes-memory-book.expanded .book-inside-open { grid-template-columns: repeat(2, 1fr); }
   
   /* Scale the display box for mobile */

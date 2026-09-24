@@ -9,19 +9,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=60" />
+  <link rel="stylesheet" href="style.css?v=65" />
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn8B9YlW0QAAAABJRU5ErkJggg==">
 </head>
 <body>
   <div class="ambient-glow"></div>
   <canvas id="confettiCanvas"></canvas>
 
-  <!-- ACT I: INITIAL SCREEN -->
+  <!-- ACT I: INITIAL SCREEN (Candle & Mic) -->
   <main id="initialScreen" class="screen screen--initial">
     <div class="stars-container" id="starsContainer"></div>
 
     <div class="hero-layout">
-      <!-- Interactive cake focal point -->
       <div class="cake-feature">
         <div class="cake-feature__halo"></div>
         <div class="cake-feature__eyebrow"></div>
@@ -55,18 +54,16 @@
             <div class="cake-plate"><span></span></div>
           </div>
         </div>
-        <div class="cake-feature__caption">Tap the cake T^T </div>
+        <div class="cake-feature__caption">Tap the cake and unfold the magic hehe </div>
         <p class="handwritten-note handwritten-note--after-click" id="wishMessage" hidden>"Now, keep your eyes shut and manifest something good for yourself and then blow the candle (towards microphone XD)!"</p>
       </div>
 
-      <!-- Text & interaction -->
       <div class="interaction-area">
         <h1 class="main-title">Happy Birthday <span class="gradient-text">Fiaddd</span></h1>
         <p class="instruction-lead">[a lil surprise for you T^T ]</p>
 
-        <!-- Microphone Volume Hud -->
         <div class="volume-hud" id="volumeHud" hidden>
-          <p class="volume-text" id="volumeText">Blow gently toward your microphone... 💨</p>
+          <p class="volume-text" id="volumeText">Blow gently towards your microphone... 💨</p>
           <div class="volume-track">
             <div class="volume-fill" id="volumeFill"></div>
           </div>
@@ -81,9 +78,6 @@
   <!-- ACT II: CELEBRATION SCREEN -->
   <main id="celebrationScreen" class="screen screen--celebration" hidden>
     
-    <!-- NEW: Global Dimming Overlay -->
-    <div id="overlayBackdrop" class="overlay-backdrop"></div>
-
     <div class="aes-wrapper">
       
       <!-- BACKGROUND / WALL -->
@@ -118,7 +112,6 @@
           </svg>
         </div>
 
-        <!-- STAMPED WALL CENTER GROUP -->
         <div class="aes-wall-center">
           <div class="aes-wall-text">
             Happy<br>Birthday
@@ -130,7 +123,6 @@
           </div>
         </div>
 
-        <!-- Outer hanging cards -->
         <div class="aes-polaroids">
           <div class="aes-polaroid text-card p-top-left">
             <span>•</span>
@@ -150,7 +142,6 @@
         <div class="aes-table-surface"></div>
         <div class="aes-table-runner"></div>
 
-        <!-- CENTER CAKE -->
         <div class="aes-center-cake">
           <div class="aes-ground-shadow cake-shadow"></div>
           <div class="pixel-cake">
@@ -178,7 +169,6 @@
           </div>
         </div>
 
-        <!-- RIGHT CANDELABRA -->
         <div class="aes-candelabra">
           <div class="aes-ground-shadow candelabra-shadow"></div>
           <div class="tall-candle c-left"><div class="tall-flame"></div></div>
@@ -188,6 +178,10 @@
 
         <!-- LEFT CLUSTER -->
         <div class="aes-basket-cluster">
+          
+          <!-- FIXED OVERLAY: Placing this inside the cluster guarantees it sits behind opened items! -->
+          <div id="overlayBackdrop" class="overlay-backdrop"></div>
+
           <div class="aes-ground-shadow basket-floor-shadow"></div>
           <div class="basket-back"></div>
           
@@ -218,7 +212,7 @@
             </div>
             
             <div class="book-inside-wrapper" id="albumWrapper" hidden>
-              <!-- NEW: Close Button -->
+              <!-- Safe Close Button -->
               <button class="close-btn" id="closeAlbum">✖</button>
               <div class="book-inside-open" id="albumPages"></div>
             </div>
@@ -226,7 +220,6 @@
   
           <!-- 2. The 3D Letter -->
           <article id="handwrittenLetter" class="aes-3d-card">
-            <!-- Closed State -->
             <div class="card-cover" id="letterTeaser">
               <div class="craft-paper-base">
                 <div class="torn-paper-wrapper">
@@ -247,9 +240,8 @@
               </div>
             </div>
   
-            <!-- Open State (Inside) -->
             <div class="card-inside" id="letterMessage" hidden>
-              <!-- NEW: Close Button -->
+              <!-- Safe Close Button -->
               <button class="close-btn" id="closeLetter">✖</button>
 
               <div class="inside-left">
@@ -275,7 +267,7 @@
                 
                 <div class="letter-content">
                   <p>Hi!</p>
-                  <p>So, when I'm writing this, I'm kinda mad at you. Then again, ki ar kora!!! I have to, ur birthday je! You told me about a whole report on Fiad in My Eyes, etc. etc. Ehh, ki narcissistic! Like, tf am I supposed to write? :3 </p>
+                  <p>So, when I'm writing this, I'm kinda mad at you. Then again, ki ar kora!!! I have to, ur birthday je! Raat jege eshob kortesi boshe boshe XD. You told me about a whole report on Fiad in My Eyes, etc. etc. Ehh, ki narcissistic! Like, tf am I supposed to write? hae? </p>
                   <p>Then again, it's your birthday, and as I told you before, I love surprising my close ones, especially on their birthdays. I love making them feel special, especially on their birthdays. So yes, I'm writing this for you (especially not for your sake, but for your birthday's sake T^T).</p>
                   <p>...Moving on....</p>
                   <p><strong>Fiad in My Eyes.....</strong></p>
@@ -311,13 +303,11 @@
                 <div class="bow-center"></div>
               </div>
               
-              <!-- NEW: THE CLEAN "NEW BOX" DISPLAY STAND FOR THE ART SQUAD -->
               <div class="pixel-chicken" id="pixelChicken" hidden>
                 <div class="art-backdrop">
-                  <!-- NEW: Close Button -->
+                  <!-- Safe Close Button -->
                   <button class="close-btn" id="closeGift">✖</button>
                   
-                  <!-- Party Popper -->
                   <div class="art-item art-popper">
                     <div class="popper-tube"></div>
                     <div class="popper-burst">
@@ -327,7 +317,6 @@
                     </div>
                   </div>
 
-                  <!-- Realistic Outline Cat -->
                   <div class="art-item art-cat">
                     <div class="cat-tail"></div>
                     <div class="cat-body">
@@ -347,7 +336,6 @@
                     </div>
                   </div>
 
-                  <!-- Realistic Crayon Hen -->
                   <div class="art-item art-hen">
                     <div class="hen-comb">
                       <div class="comb-bump cb1"></div><div class="comb-bump cb2"></div><div class="comb-bump cb3"></div>
@@ -371,7 +359,6 @@
                     <div class="hen-heart">♥</div>
                   </div>
 
-                  <!-- Muhendis Duck -->
                   <div class="art-item art-duck">
                     <div class="duck-feet">
                       <div class="duck-foot df-left"></div><div class="duck-foot df-right"></div>
@@ -391,7 +378,7 @@
                     </div>
                   </div>
 
-                  <div class="speech-bubble" id="chickenNote">ei nao, amr murgi niye moja niba na ar -.-</div>
+                  <div class="speech-bubble" id="chickenNote">Heres your protein source, poppers and emotional support animals T^T </div>
                 </div>
               </div>
 
@@ -409,6 +396,6 @@
     <source src="hbb.mp3" type="audio/mpeg">
   </audio>
 
-  <script src="script.js?v=60"></script>
+  <script src="script.js?v=65"></script>
 </body>
 </html>
