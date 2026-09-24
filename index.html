@@ -9,8 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-  <!-- Appended ?v=26 to force the browser to load the newest CSS -->
-  <link rel="stylesheet" href="style.css?v=26" />
+  <link rel="stylesheet" href="style.css?v=35" />
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn8B9YlW0QAAAABJRU5ErkJggg==">
 </head>
 <body>
@@ -79,7 +78,7 @@
     </div>
   </main>
 
-  <!-- ACT II: CELEBRATION SCREEN (Aesthetic Redesign) -->
+  <!-- ACT II: CELEBRATION SCREEN (White & Blue Aesthetic Theme) -->
   <main id="celebrationScreen" class="screen screen--celebration" hidden>
     <div class="aes-wrapper">
       
@@ -92,15 +91,13 @@
           <div class="aes-bow-tail left"></div>
           <div class="aes-bow-tail right"></div>
         </div>
-
         <div class="aes-top-ribbon"></div>
-
         <div class="aes-balloons">
           <div class="aes-balloon white pos-1"></div>
-          <div class="aes-balloon black pos-2"></div>
+          <div class="aes-balloon blue pos-2"></div>
           <div class="aes-balloon confetti pos-3"></div>
           <div class="aes-balloon white pos-4"></div>
-          <div class="aes-balloon black pos-5"></div>
+          <div class="aes-balloon blue pos-5"></div>
           <svg class="aes-strings" viewBox="0 0 100 200" preserveAspectRatio="none">
             <path d="M10,0 Q20,20 10,40 T10,80 T10,120 T10,160" />
             <path d="M50,0 Q60,30 50,60 T50,120 T50,180" />
@@ -126,7 +123,6 @@
           <div class="aes-polaroid photo-card p-bot-2"><span>•</span><img src="photo/2.jpeg" onerror="this.src='photo/fi.png'"></div>
           <div class="aes-polaroid photo-card p-bot-3"><span>•</span><img src="photo/3.jpeg" onerror="this.src='photo/fi.png'"></div>
         </div>
-
         <div class="aes-fairy-lights"></div>
       </div>
 
@@ -135,28 +131,37 @@
         <div class="aes-table-surface"></div>
         <div class="aes-table-runner"></div>
 
-        <div class="aes-vase-setup">
-          <div class="aes-glass-candle left-candle"><div class="flame"></div></div>
-          <div class="aes-vase"></div>
-          <div class="aes-flowers"></div>
+        <!-- CENTER CAKE -->
+        <div class="aes-center-cake">
+          <div class="aes-ground-shadow cake-shadow"></div>
+          <div class="pixel-cake">
+            <div class="candle-wrapper">
+              <div class="candle-flame active"></div>
+              <div class="candle-stick"></div>
+            </div>
+            <div class="cake-tier cake-tier--top">
+              <span class="cake-moon cake-moon--top">☾</span>
+              <span class="cake-star cake-star--top">✦</span>
+              <span class="cake-pearl cake-pearl--top"></span>
+            </div>
+            <div class="cake-tier cake-tier--bottom">
+              <span class="cake-galaxy-sweep"></span>
+              <span class="cake-moon cake-moon--bottom">☾</span>
+              <span class="cake-star cake-star--one">✦</span>
+              <span class="cake-star cake-star--two">✧</span>
+              <span class="cake-star cake-star--three">✦</span>
+              <span class="cake-flower cake-flower--left">✿</span>
+              <span class="cake-flower cake-flower--right">✿</span>
+              <span class="cake-pearl cake-pearl--one"></span>
+              <span class="cake-pearl cake-pearl--two"></span>
+            </div>
+            <div class="cake-plate"><span></span></div>
+          </div>
         </div>
 
-        <div class="aes-cake-setup">
-          <div class="aes-cake-stand">
-            <div class="stand-plate"></div>
-            <div class="stand-base"></div>
-          </div>
-          <div class="aes-cake">
-            <div class="cake-bow"></div>
-            <div class="cake-ribbon-drop d1"></div>
-            <div class="cake-ribbon-drop d2"></div>
-            <div class="cake-ribbon-drop d3"></div>
-            <div class="cake-ribbon-drop d4"></div>
-            <div class="cake-candle"><div class="flame"></div></div>
-          </div>
-        </div>
-
+        <!-- RIGHT CANDELABRA -->
         <div class="aes-candelabra">
+          <div class="aes-ground-shadow candelabra-shadow"></div>
           <div class="arm left-arm"></div>
           <div class="arm right-arm"></div>
           <div class="stem"></div>
@@ -167,31 +172,114 @@
           <div class="c-bow right-bow"></div>
         </div>
 
-        <!-- Interactive Props -->
+        <!-- LEFT CLUSTER: Plate, Card, and Gift Box -->
+        
+        <!-- 1. The Plate = Memory Album -->
         <button id="memoryAlbum" class="aes-plate-btn" aria-label="Open photo album">
+          <div class="aes-ground-shadow plate-shadow"></div>
           <div class="aes-plate">
             <div class="plate-bow"></div>
           </div>
           <span class="album-pages" id="albumPages" style="display:none;"></span>
         </button>
 
-        <article id="handwrittenLetter" class="aes-frame-letter">
-          <div class="letter-teaser" id="letterTeaser">
-            <div class="frame-glass">
-              <p>It's<br>your<br>day<br>♥</p>
+        <!-- 2. The 3D Letter -->
+        <article id="handwrittenLetter" class="aes-3d-card">
+          <div class="aes-ground-shadow letter-shadow"></div>
+          
+          <!-- Closed State (Cover - Rustic Torn Paper & Bouquet) -->
+          <div class="card-cover" id="letterTeaser">
+            <div class="craft-paper-base">
+              <div class="torn-paper-wrapper">
+                <div class="torn-paper-edge">
+                  <div class="cover-text">
+                    <span class="small-happy">HAPPY</span>
+                    <span class="big-birthday">Birthday</span>
+                  </div>
+                  <div class="mini-bouquet">
+                    <div class="bouquet-flowers"></div>
+                    <div class="bouquet-wrap-left"></div>
+                    <div class="bouquet-wrap-right"></div>
+                    <div class="twine"></div>
+                    <div class="twine-bow"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="letter-message" id="letterMessage" hidden>
-            <p class="letter-greeting">Helloooo Fiaddd!</p>
-            <p class="letter-body">Wishing you a gentle birthday; one that brings healing, growth, and people who truly value your presence.</p>
-            <p class="letter-signature">With Tonsss Offf hateee,<br><span>Bablyyyy</span></p>
+
+          <!-- Open State (Inside) -->
+          <div class="card-inside" id="letterMessage" hidden>
+            <div class="inside-left">
+              <div class="card-moon"></div>
+              <div class="card-clouds"></div>
+              <div class="card-stars">
+                <div class="star-line s1">★</div>
+                <div class="star-line s2">★</div>
+                <div class="star-line s3">★</div>
+                <div class="star-floating sf1">✦</div>
+                <div class="star-floating sf2">✧</div>
+              </div>
+            </div>
+            <div class="inside-right">
+              <div class="top-moon-tag">
+                <div class="tiny-moon"></div>
+              </div>
+              <div class="side-flower-decor">
+                <div class="decor-stem"></div>
+                <div class="decor-bloom"></div>
+                <div class="decor-bow"></div>
+              </div>
+              
+              <!-- UPDATED TEXT HERE -->
+              <div class="letter-content">
+                <p>Hi!</p>
+                <p>So, when I'm writing this, I'm kinda mad at you. Then again, ki ar kora!!! I have to, ur birthday je! You told me about a whole report on Fiad in My Eyes, etc. etc. Ehh, ki narcissistic! Like, tf am I supposed to write? :3 </p>
+                <p>Then again, it's your birthday, and as I told you before, I love surprising my close ones, especially on their birthdays. I love making them feel special, especially on their birthdays. So yes, I'm writing this for you (especially not for your sake, but for your birthday's sake T^T).</p>
+                <p>...Moving on....</p>
+                <p><strong>Fiad in My Eyes.....</strong></p>
+                <p>Fiad in my eyes is a kid trying so hard to look hot, but not hot at all, at least not in my eyes (he is gayyyyyyyyyy T^T).</p>
+                <p>A kid who giggles hudai on random xyz (he finds everything funny XD). A kid who LOVES appreciation. Mygod, etto beshiiii! Ektu appreciate korlei melt hoye jay, then goes, "Aro bolo, aro bolo." (Ehhhhe, like etto self-obsessed!!!).</p>
+                <p>Eto body freak je, 10 ta messages-er moddhe 9 tai tar body consciousness-related thake. (Sighhhh, I'm so tired of him).</p>
+                <p>Fiaddd, A streamer. A crybaby, obv. Someone who keeps nagging to hang out.(But ami to ami, so you already know how that goes XD).</p>
+                <p>Fiad in my eyes is the fiaddd whose purpose in my life I'm still, constantly trying to figure out. Like, seriously, what even are you doing in my life? XD.</p>
+                <p>Fiad in my eyes is my movie-partner, my xyz-sharing partner, and someone whose smile makes all 32 of his teeth visible, just like mine XD. (But amr motoi cute lage hashle T^T, so cant roast here).</p>
+                <p>Fiad is someone I'd show to my future husband just to make him jealous. (Eta tomake khushi korar jonno bolsi, don't blush XD).</p>
+                <p>Fiad is also one of my most loyal reel likers. And, well, he's actually a valo manush. (Lyingggg. Obviously. XD).</p>
+                <p> Praying je ei Fiaddd life e onekkkkk valo kichu koruk. Hope he gets to achieve all the things he dreams of and becomes someone he's genuinely proud of. Hope I get to remain one of the good memories of Fiad's life, too. Aside, oy jemon meye chacche (I know, but I can't write it here XD XD), omon kaukei biye koruk. Someone who can minimize his loneliness (which he isn't feeling at all, obviously XD).</p>
+                <p>Anywayyy,</p>
+                <p>Happiest Birthday, FIADDDD Hossain Chowdhury!</p>
+                <p>Be happy, stay healthy, and live the best life you possibly can. A life you can look back on and feel proud of. The life you've shared that you're going to pursue, the life you've dreamed of, and a life with a little less pain.</p>
+                <p>May you have a whimsical life filled with blessings and lots of fairies XD. May life be kind to you, and may you always find little reasons to smile, even on the days when things get difficult.</p>
+                <p>Tataaa.</p>
+                <p class="letter-signature">Regards,<br><span>Bablyyy (another narcissistic someone like you XD).</span></p>
+              </div>
+              <!-- END UPDATED TEXT -->
+
+            </div>
           </div>
         </article>
 
-        <div class="aes-heart-setup">
-          <div class="aes-glass-candle right-candle"><div class="flame"></div></div>
-          <div id="giftBox" class="aes-black-heart">
-            <div class="gift-box" style="display:none;"></div>
+        <!-- 3. Green Plaid Gift Box (With White/Gold Bow) -->
+        <div class="aes-gift-setup">
+          <div class="aes-ground-shadow box-shadow"></div>
+          <div id="giftBox" class="aes-plaid-box">
+            
+            <!-- Box Body with Plaid Pattern -->
+            <div class="box-body plaid-pattern"></div>
+            
+            <!-- Folded Flaps -->
+            <div class="box-flap left-flap plaid-pattern"></div>
+            <div class="box-flap right-flap plaid-pattern"></div>
+            
+            <!-- White & Gold Bow -->
+            <div class="box-bow white-gold-bow">
+              <div class="bow-loop-l"></div>
+              <div class="bow-loop-r"></div>
+              <div class="bow-center"></div>
+            </div>
+
+            <!-- The Chicken (Hidden until clicked) -->
             <div class="pixel-chicken" id="pixelChicken" hidden>🐔
               <div class="speech-bubble" id="chickenNote">ei nao, amr murgi niye moja niba na ar -.-</div>
             </div>
@@ -206,7 +294,6 @@
     <source src="hbb.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Appended ?v=26 to ensure the script isn't cached if you've made changes -->
-  <script src="script.js?v=26"></script>
+  <script src="script.js?v=35"></script>
 </body>
 </html>
