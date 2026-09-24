@@ -7,12 +7,19 @@ const volumeFill = document.getElementById('volumeFill');
 const volumeText = document.getElementById('volumeText');
 const errorMessage = document.getElementById('errorMessage');
 const backgroundMusic = document.getElementById('backgroundMusic');
+
+// Act II Elements
 const handwrittenLetter = document.getElementById('handwrittenLetter');
 const giftBox = document.getElementById('giftBox');
 const wishMessage = document.getElementById('wishMessage');
 const partyCat = document.getElementById('partyCat');
 const memoryAlbum = document.getElementById('memoryAlbum');
 const albumPages = document.getElementById('albumPages');
+const overlay = document.getElementById('overlayBackdrop');
+
+const closeLetter = document.getElementById('closeLetter');
+const closeAlbum = document.getElementById('closeAlbum');
+const closeGift = document.getElementById('closeGift');
 
 // Dynamically generate the 40 photos for the memory book
 const albumPhotos = Array.from({length: 40}, (_, i) => `${i + 1}.jpeg`);
@@ -41,52 +48,92 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- ACT II MODAL LOGIC --- //
   
-  // Letter expand/collapse handler
+  function closeAllPopups() {
+    // Close Letter
+    if(handwrittenLetter) {
+        handwrittenLetter.classList.remove('expanded');
+        document.getElementById('letterMessage').hidden = true;
+        document.getElementById('letterTeaser').hidden = false;
+    }
+    
+    // Close Album
+    if(memoryAlbum) {
+        memoryAlbum.classList.remove('expanded');
+        document.getElementById('albumWrapper').hidden = true;
+        setTimeout(() => { albumPages.style.display = 'none'; }, 300);
+    }
+
+    // Close Gift Box
+    if(giftBox) {
+        giftBox.classList.remove('open');
+        giftBox.parentElement.classList.remove('expanded'); // Un-center it
+        document.getElementById('pixelChicken').hidden = true;
+    }
+
+    // Hide global backdrop
+    if(overlay) overlay.classList.remove('active');
+  }
+
+  // Letter Expand handler
   if (handwrittenLetter) {
-    handwrittenLetter.addEventListener('click', () => {
+    handwrittenLetter.addEventListener('click', (e) => {
+      if (e.target.closest('.close-btn')) return; // Ignore if clicking close
       const teaser = document.getElementById('letterTeaser');
       const message = document.getElementById('letterMessage');
       if (message.hidden) {
         teaser.hidden = true;
         message.hidden = false;
         handwrittenLetter.classList.add('expanded');
-      } else {
-        teaser.hidden = false;
-        message.hidden = true;
-        handwrittenLetter.classList.remove('expanded');
+        if(overlay) overlay.classList.add('active');
       }
     });
   }
 
   // Gift box open handler
   if (giftBox) {
-    giftBox.addEventListener('click', () => {
-      giftBox.classList.add('open');
-      document.getElementById('pixelChicken').hidden = false;
+    giftBox.addEventListener('click', (e) => {
+      if (e.target.closest('.close-btn')) return; // Ignore if clicking close
+      if (!giftBox.classList.contains('open')) {
+        giftBox.classList.add('open');
+        giftBox.parentElement.classList.add('expanded'); // Center the box
+        document.getElementById('pixelChicken').hidden = false;
+        if(overlay) overlay.classList.add('active');
+      }
     });
   }
 
   // Memory Book Handler
   if (memoryAlbum && albumPages) {
-    // Generate the photo grid wrappers
     albumPages.innerHTML = albumPhotos.map((photo) => `
       <div class="photo-wrap">
         <img src="${encodeURI(`photo/${photo}`)}" onerror="this.src='photo/fi.png'" alt="Memory" loading="lazy">
       </div>
     `).join('');
     
-    memoryAlbum.addEventListener('click', () => {
-      const isOpen = memoryAlbum.classList.toggle('expanded');
-      
-      // If expanded, show the pages. If closed, hide them.
-      if(isOpen) {
+    memoryAlbum.addEventListener('click', (e) => {
+      if (e.target.closest('.close-btn')) return; // Ignore if clicking close
+      if (!memoryAlbum.classList.contains('expanded')) {
+        memoryAlbum.classList.add('expanded');
+        document.getElementById('albumWrapper').hidden = false;
         albumPages.style.display = 'grid';
-      } else {
-        setTimeout(() => { albumPages.style.display = 'none'; }, 300); // Wait for transition
+        if(overlay) overlay.classList.add('active');
       }
     });
   }
+
+  // Close Events for all "X" buttons and overlay background
+  [overlay, closeLetter, closeAlbum, closeGift].forEach(btn => {
+    if(btn) {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeAllPopups();
+        });
+    }
+  });
+
 });
 
 // --- CAKE INTERACTION LOGIC --- //
@@ -119,7 +166,7 @@ async function startMicSequence() {
   volumeHud.hidden = false;
 
   if (!success) {
-    // If mic fails, they must allow permissions. They can no longer bypass by tapping.
+    // If mic fails, they must allow permissions.
     volumeText.innerHTML = 'Mic access denied.<br><b>Please refresh and allow mic access to blow out the candle!</b>';
     volumeFill.style.width = '0%';
     volumeFill.style.background = '#f43f5e';
