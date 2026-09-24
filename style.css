@@ -108,6 +108,8 @@ body {
 .candle-stick { position: relative; width: 100%; height: 100%; overflow: hidden; background: linear-gradient(90deg, #c49a4c 0%, #fff5c8 18%, #fffdf0 52%, #d4ad5d 100%); border: 2px solid #76542c; border-radius: 5px 5px 4px 4px; box-shadow: inset 3px 0 3px rgba(255,255,255,.65), inset -3px 0 4px rgba(104,64,20,.28), 0 4px 6px rgba(0,0,0,.28); }
 .candle-stick::before { content: ''; position: absolute; left: 2px; right: 2px; top: 8px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.36); box-shadow: 0 19px 0 rgba(255,255,255,.2); }
 .candle-stick::after { content: ''; position: absolute; right: 1px; bottom: 6px; width: 6px; height: 11px; border-radius: 0 0 5px 5px; background: #fff8d9; }
+
+/* Fixed generic flame setup so it doesn't conflict later */
 .candle-flame {
   position: absolute; top: -39px; left: -2px; width: 22px; height: 34px; z-index: 5;
   background: radial-gradient(ellipse at 50% 72%, #fffbd0 0 16%, #ffd34e 27%, #ff8b24 57%, #ef4b20 78%);
@@ -240,8 +242,12 @@ body {
 
 /* FIXED Candelabra Flames - Using precise pixel positioning relative to top of candle */
 .tall-candle { position: absolute; width: 10%; height: 40%; background: linear-gradient(90deg, #f1f5f9, #ffffff, #cbd5e1); border-radius: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-.tall-candle::before { content: ''; position: absolute; top: -4px; left: 50%; width: 2px; height: 4px; background: #333; transform: translateX(-50%); } /* Tiny wick */
-.tall-candle .flame { top: -25px; left: 50%; transform: translateX(-50%); width: 12px; height: 22px; }
+.tall-candle::before { content: ''; position: absolute; top: -4px; left: 50%; margin-left: -1px; width: 2px; height: 4px; background: #333; } /* Tiny wick */
+.tall-flame { 
+  position: absolute; top: -24px; left: 50%; margin-left: -6px; width: 12px; height: 22px; 
+  background: #fffbd0; border-radius: 50% 50% 20% 20%; 
+  box-shadow: 0 0 10px #ffc84d, 0 0 20px #ef8b42; animation: flame-flicker 0.15s infinite alternate; 
+}
 
 .c-left { top: 15%; left: 0; }
 .c-center { top: 5%; left: 45%; }
@@ -249,17 +255,39 @@ body {
 
 
 /* ====================================================
-   LEFT CLUSTER: Album, 3D Realistic Letter, Gift Box
+   LEFT CLUSTER: Woven Basket with Gifts
 ==================================================== */
 
-/* 1. Memory Book (Replaces Plate, Far Left) */
+.aes-basket-cluster {
+  position: absolute; bottom: 10%; left: 6%; width: 38%; height: 28%; z-index: 15;
+}
+.basket-floor-shadow { bottom: -10%; left: 5%; width: 90%; height: 20px; background: rgba(5,10,20,0.5); filter: blur(8px); }
+
+/* Woven Basket Front */
+.basket-front { 
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; 
+  background-color: #cda87a;
+  background-image: 
+      linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52), 
+      linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52);
+  background-size: 20px 20px; background-position: 0 0, 10px 10px;
+  border-radius: 5px 5px 20px 20px; border-top: 8px solid #8e6236;
+  box-shadow: inset 0 10px 15px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.5);
+  z-index: 30; pointer-events: none; 
+}
+.basket-back { 
+  position: absolute; bottom: 15%; left: 5%; width: 90%; height: 50%; 
+  background: #966b42; border-radius: 10px; box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5); z-index: 5; 
+}
+
+/* 1. Memory Book (Left side of basket) */
 .aes-memory-book { 
-  position: absolute; bottom: 25%; left: 8%; width: 18%; aspect-ratio: 4/3.5; 
+  position: absolute; bottom: 20%; left: 5%; width: 30%; aspect-ratio: 4/3.5; 
   background: transparent; border: none; cursor: pointer; z-index: 10; 
   padding: 0; outline: none; transition: transform 0.3s ease; 
-  transform: rotate(-5deg); filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+  transform: rotate(-5deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
 }
-.aes-memory-book:hover { transform: scale(1.05) rotate(-2deg); }
+.aes-memory-book:hover { transform: scale(1.05) rotate(-2deg); z-index: 25; }
 
 /* Book Cover Styling */
 .book-cover-closed { width: 100%; height: 100%; position: relative; background: #bfa58a; border-radius: 2px 8px 8px 2px; overflow: hidden; border-left: 2px solid #8c735d; }
@@ -291,9 +319,8 @@ body {
 .photo-wrap { background: #fff; padding: 8px 8px 25px 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 .photo-wrap img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid #eee; }
 
-/* 2. Green Plaid Gift Box (Middle Left, Scaled Down & Pushed Back) */
-.aes-gift-setup { position: absolute; bottom: 28%; left: 26%; width: 10%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
-.box-shadow { bottom: -10px; width: 90%; height: 25px; filter: blur(5px); background: rgba(5,10,20,0.6); }
+/* 2. Green Plaid Gift Box (Right side of basket) */
+.aes-gift-setup { position: absolute; bottom: 15%; right: 5%; width: 25%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
 
 .aes-plaid-box { width: 100%; height: 80%; position: absolute; bottom: 0; cursor: pointer; transition: transform 0.3s ease; }
 .aes-plaid-box:hover { transform: scale(1.05) translateY(-5px); }
@@ -335,16 +362,16 @@ body {
 .aes-plaid-box.open .pixel-chicken { transform: translateY(0px); }
 .speech-bubble { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #ffffff; color: #000; padding: 5px 10px; border-radius: 10px; font-family: var(--font-hand); font-size: 1rem; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-/* 3. The 3D Rustic Card (Foreground Left, Lying Flat) */
+/* 3. The 3D Rustic Card (Middle of basket, lying elegantly) */
 .aes-3d-card {
-  position: absolute; bottom: 8%; left: 15%; width: 18%; aspect-ratio: 3.5/5;
+  position: absolute; bottom: 12%; left: 35%; width: 30%; aspect-ratio: 3.5/5;
   z-index: 15; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   transform-style: preserve-3d;
-  /* FIXED: Card is completely flat on table */
-  transform: perspective(800px) rotateX(60deg) rotateZ(-10deg);
+  /* Stands beautifully slightly tilted inside the basket */
+  transform: perspective(800px) rotateX(10deg) rotateZ(3deg);
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
 }
-.aes-3d-card:hover { transform: perspective(800px) rotateX(40deg) rotateZ(-5deg) scale(1.1) translateY(-15px); z-index: 25; }
-.letter-shadow { position: absolute; bottom: -5px; left: 5%; width: 90%; height: 15px; filter: blur(8px); transition: opacity 0.3s; background: rgba(5,10,20,0.6); }
+.aes-3d-card:hover { transform: perspective(800px) rotateX(0deg) rotateZ(0deg) scale(1.1) translateY(-10px); z-index: 25; }
 
 /* Card Cover: Kraft Base & Torn Edge */
 .card-cover { width: 100%; height: 100%; position: relative; transition: opacity 0.3s ease; }
@@ -380,7 +407,7 @@ body {
 /* Open State (Inside letter content) */
 .card-inside { position: absolute; inset: 0; display: flex; width: 100%; height: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 
-/* FIXED: Expanded State completely resets the 3D rotation so it reads perfectly flat on the screen */
+/* Expanded State resets 3D rotation so it reads perfectly flat on the screen */
 .aes-3d-card.expanded {
   position: fixed; top: 50%; left: 50%; 
   transform: translate(-50%, -50%) rotateX(0deg) rotateZ(0deg) scale(1) !important;
@@ -422,10 +449,11 @@ body {
   .aes-table { inset: 68% -5% 0 -5%; }
   .aes-center-cake { transform: translateX(-50%) scale(0.6); bottom: 44%; }
   
-  /* Left Cluster Mobile Alignment - Perfectly Layered! */
-  .aes-memory-book { left: 4%; width: 25%; bottom: 30%; }
-  .aes-gift-setup { left: 35%; width: 18%; bottom: 32%; }
-  .aes-3d-card { left: 15%; width: 30%; bottom: 8%; transform: perspective(800px) rotateX(55deg) rotateZ(-10deg); }
+  /* Left Cluster Mobile Alignment - Scaled perfectly into the basket */
+  .aes-basket-cluster { left: 2%; width: 45%; bottom: 12%; height: 22%; }
+  .aes-memory-book { left: 2%; width: 32%; bottom: 20%; }
+  .aes-3d-card { left: 32%; width: 32%; bottom: 18%; }
+  .aes-gift-setup { right: 2%; width: 28%; bottom: 22%; }
   
   /* Mobile Open Letter Layout */
   .aes-3d-card.expanded { width: 95%; height: 85vh; flex-direction: column; }
