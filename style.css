@@ -206,7 +206,7 @@ body {
 .aes-bow-tail.right { left: 42%; transform: rotate(-8deg); background: #070e1a; }
 .aes-top-ribbon { position: absolute; top: 9%; left: 0; right: 0; height: 4%; background: #0b192c; z-index: 1; box-shadow: 0 5px 10px rgba(0,0,0,0.2); }
 
-/* FIXED Polaroids: Tightened Padding */
+/* Polaroids */
 .aes-polaroids { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .aes-polaroid { position: absolute; background: #ffffff; padding: 4px 4px 12px 4px; box-shadow: 0 5px 10px rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .aes-polaroid > span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); color: #0b192c; font-size: 1.5rem; text-shadow: 0 2px 2px rgba(0,0,0,0.2); z-index: 5; } 
@@ -240,9 +240,8 @@ body {
 .right-arm { right: 5%; border-right: 4px solid #94a3b8; border-radius: 0 0 20px 0; }
 .stem { position: absolute; top: 40%; width: 4%; height: 60%; background: #e2e8f0; }
 
-/* FIXED Candelabra Flames - Using precise pixel positioning relative to top of candle */
 .tall-candle { position: absolute; width: 10%; height: 40%; background: linear-gradient(90deg, #f1f5f9, #ffffff, #cbd5e1); border-radius: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-.tall-candle::before { content: ''; position: absolute; top: -4px; left: 50%; margin-left: -1px; width: 2px; height: 4px; background: #333; } /* Tiny wick */
+.tall-candle::before { content: ''; position: absolute; top: -4px; left: 50%; margin-left: -1px; width: 2px; height: 4px; background: #333; } 
 .tall-flame { 
   position: absolute; top: -24px; left: 50%; margin-left: -6px; width: 12px; height: 22px; 
   background: #fffbd0; border-radius: 50% 50% 20% 20%; 
@@ -253,43 +252,25 @@ body {
 .c-center { top: 5%; left: 45%; }
 .c-right { top: 15%; right: 0; }
 
-
-/* ====================================================
-   LEFT CLUSTER: Woven Basket with Gifts
-==================================================== */
-
+/* Woven Basket with Gifts */
 .aes-basket-cluster {
   position: absolute; bottom: 10%; left: 6%; width: 38%; height: 28%; z-index: 15;
 }
 .basket-floor-shadow { bottom: -10%; left: 5%; width: 90%; height: 20px; background: rgba(5,10,20,0.5); filter: blur(8px); }
 
-/* Woven Basket Front */
 .basket-front { 
-  position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; 
-  background-color: #cda87a;
-  background-image: 
-      linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52), 
-      linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52);
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; background-color: #cda87a;
+  background-image: linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52), linear-gradient(45deg, #a67c52 25%, transparent 25%, transparent 75%, #a67c52 75%, #a67c52);
   background-size: 20px 20px; background-position: 0 0, 10px 10px;
   border-radius: 5px 5px 20px 20px; border-top: 8px solid #8e6236;
   box-shadow: inset 0 10px 15px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.5);
   z-index: 30; pointer-events: none; 
 }
-.basket-back { 
-  position: absolute; bottom: 15%; left: 5%; width: 90%; height: 50%; 
-  background: #966b42; border-radius: 10px; box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5); z-index: 5; 
-}
+.basket-back { position: absolute; bottom: 15%; left: 5%; width: 90%; height: 50%; background: #966b42; border-radius: 10px; box-shadow: inset 0 -10px 20px rgba(0,0,0,0.5); z-index: 5; }
 
-/* 1. Memory Book (Left side of basket) */
-.aes-memory-book { 
-  position: absolute; bottom: 20%; left: 5%; width: 30%; aspect-ratio: 4/3.5; 
-  background: transparent; border: none; cursor: pointer; z-index: 10; 
-  padding: 0; outline: none; transition: transform 0.3s ease; 
-  transform: rotate(-5deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
-}
+.aes-memory-book { position: absolute; bottom: 20%; left: 5%; width: 30%; aspect-ratio: 4/3.5; background: transparent; border: none; cursor: pointer; z-index: 10; padding: 0; outline: none; transition: transform 0.3s ease; transform: rotate(-5deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 .aes-memory-book:hover { transform: scale(1.05) rotate(-2deg); z-index: 25; }
 
-/* Book Cover Styling */
 .book-cover-closed { width: 100%; height: 100%; position: relative; background: #bfa58a; border-radius: 2px 8px 8px 2px; overflow: hidden; border-left: 2px solid #8c735d; }
 .book-spiral { position: absolute; left: -2px; top: 5%; width: 15px; height: 90%; display: flex; flex-direction: column; justify-content: space-evenly; z-index: 5; }
 .book-spiral i { width: 100%; height: 4px; background: #111; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
@@ -298,57 +279,34 @@ body {
 .patch-bot-left { position: absolute; bottom: 0; left: 10px; width: 45%; height: 35%; background: #8b7355; opacity: 0.8; }
 .patch-bot-right { position: absolute; bottom: 0; right: 0; width: 45%; height: 35%; background: #cbbcc6; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.2) 0 2px, transparent 2px 6px); }
 
-/* Scrabble Title */
 .scrabble-strip { position: absolute; top: 50%; left: 10px; width: 90%; transform: translateY(-50%); background: rgba(255,255,255,0.3); padding: 5px; display: flex; justify-content: space-evenly; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); z-index: 3; }
 .scrabble-tile { width: 12%; aspect-ratio: 1; background: #fdf5e6; border: 1px solid #ccc; box-shadow: 1px 1px 2px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; position: relative; font-family: sans-serif; font-weight: bold; font-size: 0.8rem; color: #111; }
 .scrabble-tile small { position: absolute; bottom: 1px; right: 2px; font-size: 0.3rem; }
 
-/* Black Ribbon Tie */
 .book-ribbon-tie { position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 20px; height: 30px; }
 .tie-loop-top { position: absolute; top: 0; right: -15px; width: 25px; height: 15px; background: #111; border-radius: 50%; transform: rotate(30deg); box-shadow: inset 0 0 5px rgba(0,0,0,0.8); }
 .tie-loop-bot { position: absolute; bottom: 0; right: -15px; width: 25px; height: 15px; background: #111; border-radius: 50%; transform: rotate(-30deg); box-shadow: inset 0 0 5px rgba(0,0,0,0.8); }
 
-/* Album Popups (Expanded View) */
 .book-inside-open { position: absolute; top: -200%; left: 0; background: #ffffff; padding: 15px; border-radius: 8px; box-shadow: 0 15px 30px rgba(0,0,0,0.5); z-index: 30; }
 .aes-memory-book.expanded { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0) !important; width: 90%; max-width: 900px; height: 80vh; z-index: 1000; cursor: default; filter: none; }
 .aes-memory-book.expanded .book-cover-closed { display: none; }
-.aes-memory-book.expanded .book-inside-open { 
-  display: grid !important; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; 
-  width: 100%; height: 100%; top: 0; position: relative; overflow-y: auto; pointer-events: auto; background: #f4eee9; 
-}
+.aes-memory-book.expanded .book-inside-open { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; width: 100%; height: 100%; top: 0; position: relative; overflow-y: auto; pointer-events: auto; background: #f4eee9; }
 .photo-wrap { background: #fff; padding: 8px 8px 25px 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
 .photo-wrap img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid #eee; }
 
-/* 2. Green Plaid Gift Box (Right side of basket) */
 .aes-gift-setup { position: absolute; bottom: 15%; right: 5%; width: 25%; aspect-ratio: 1; z-index: 12; display: flex; justify-content: center; align-items: center; }
-
 .aes-plaid-box { width: 100%; height: 80%; position: absolute; bottom: 0; cursor: pointer; transition: transform 0.3s ease; }
 .aes-plaid-box:hover { transform: scale(1.05) translateY(-5px); }
 
-/* Plaid Pattern */
-.plaid-pattern {
-  background-color: #27402f; 
-  background-image:
-      repeating-linear-gradient(transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px),
-      repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px),
-      repeating-linear-gradient(transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px),
-      repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px),
-      repeating-linear-gradient(transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px),
-      repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px);
-}
+.plaid-pattern { background-color: #27402f; background-image: repeating-linear-gradient(transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(160,180,150,0.15) 20px, rgba(160,180,150,0.15) 25px), repeating-linear-gradient(transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px), repeating-linear-gradient(90deg, transparent, transparent 35px, rgba(150,50,50,0.4) 35px, rgba(150,50,50,0.4) 38px), repeating-linear-gradient(transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px), repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(212,175,55,0.3) 15px, rgba(212,175,55,0.3) 16px); }
 
 .box-body { position: absolute; bottom: 0; width: 100%; height: 75%; box-shadow: inset 0 0 15px rgba(0,0,0,0.5); }
 .box-flap { position: absolute; top: 0; width: 50%; height: 25%; box-shadow: inset 0 0 10px rgba(0,0,0,0.4); transition: transform 0.4s ease; }
 .left-flap { left: 0; clip-path: polygon(0 100%, 100% 0, 100% 100%); transform-origin: bottom left; }
 .right-flap { right: 0; clip-path: polygon(0 0, 100% 100%, 0 100%); transform-origin: bottom right; background-color: #1e3325; }
 
-/* White/Gold Bow */
 .white-gold-bow { position: absolute; top: -15%; left: 10%; width: 80%; height: 35%; z-index: 5; transition: transform 0.4s ease, opacity 0.4s ease; }
-.bow-loop-l, .bow-loop-r {
-  position: absolute; top: 0; width: 55%; height: 100%;
-  background: #fdfdfd; border: 2px dashed #d4af37;
-  border-radius: 50% 50% 10% 10%; box-shadow: inset 0 0 5px rgba(0,0,0,0.1), 0 5px 5px rgba(0,0,0,0.2);
-}
+.bow-loop-l, .bow-loop-r { position: absolute; top: 0; width: 55%; height: 100%; background: #fdfdfd; border: 2px dashed #d4af37; border-radius: 50% 50% 10% 10%; box-shadow: inset 0 0 5px rgba(0,0,0,0.1), 0 5px 5px rgba(0,0,0,0.2); }
 .bow-loop-l { left: -5%; transform: rotate(-25deg); }
 .bow-loop-r { right: -5%; transform: rotate(25deg); }
 .bow-center { position: absolute; top: 30%; left: 40%; width: 20%; height: 40%; background: #fdfdfd; border: 2px dashed #d4af37; border-radius: 4px; z-index: 2; }
@@ -357,42 +315,17 @@ body {
 .aes-plaid-box.open .right-flap { transform: rotateY(90deg) scaleX(0.1); }
 .aes-plaid-box.open .white-gold-bow { transform: translateY(-30px); opacity: 0; pointer-events: none; }
 
-/* Chicken inside the box */
 .pixel-chicken { position: absolute; top: -60px; left: -10%; font-size: 3.5rem; z-index: 30; pointer-events: none; transform: translateY(20px); transition: transform 0.4s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .aes-plaid-box.open .pixel-chicken { transform: translateY(0px); }
 .speech-bubble { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #ffffff; color: #000; padding: 5px 10px; border-radius: 10px; font-family: var(--font-hand); font-size: 1rem; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-/* 3. The 3D Rustic Card (Middle of basket, lying elegantly) */
-.aes-3d-card {
-  position: absolute; bottom: 12%; left: 35%; width: 30%; aspect-ratio: 3.5/5;
-  z-index: 15; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-  transform-style: preserve-3d;
-  /* Stands beautifully slightly tilted inside the basket */
-  transform: perspective(800px) rotateX(10deg) rotateZ(3deg);
-  filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
-}
+.aes-3d-card { position: absolute; bottom: 12%; left: 35%; width: 30%; aspect-ratio: 3.5/5; z-index: 15; cursor: pointer; transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; transform: perspective(800px) rotateX(10deg) rotateZ(3deg); filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4)); }
 .aes-3d-card:hover { transform: perspective(800px) rotateX(0deg) rotateZ(0deg) scale(1.1) translateY(-10px); z-index: 25; }
 
-/* Card Cover: Kraft Base & Torn Edge */
 .card-cover { width: 100%; height: 100%; position: relative; transition: opacity 0.3s ease; }
-.craft-paper-base {
-  width: 100%; height: 100%; background: #d0aa82;
-  background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 4px 4px;
-  box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 2px 5px 12px rgba(0,0,0,0.4);
-  padding: 8%; display: flex; align-items: center; justify-content: center;
-}
+.craft-paper-base { width: 100%; height: 100%; background: #d0aa82; background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 4px 4px; box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 2px 5px 12px rgba(0,0,0,0.4); padding: 8%; display: flex; align-items: center; justify-content: center; }
 .torn-paper-wrapper { width: 90%; height: 90%; position: relative; filter: drop-shadow(2px 4px 5px rgba(0,0,0,0.3)); }
-.torn-paper-edge {
-  width: 100%; height: 100%; background: #fdfdfd;
-  clip-path: polygon(
-    2% 1%, 6% 3%, 12% 0%, 18% 2%, 24% 0%, 30% 3%, 36% 1%, 42% 2%, 48% 0%, 54% 2%, 60% 1%, 66% 3%, 72% 0%, 78% 2%, 84% 1%, 90% 3%, 96% 0%, 98% 2%,
-    100% 8%, 98% 14%, 99% 20%, 97% 26%, 100% 32%, 98% 38%, 99% 44%, 97% 50%, 100% 56%, 98% 62%, 99% 68%, 97% 74%, 100% 80%, 98% 86%, 99% 92%, 97% 98%,
-    96% 100%, 90% 98%, 84% 99%, 78% 97%, 72% 100%, 66% 98%, 60% 99%, 54% 97%, 48% 100%, 42% 98%, 36% 99%, 30% 97%, 24% 100%, 18% 98%, 12% 99%, 6% 97%, 2% 99%,
-    0% 94%, 2% 88%, 1% 82%, 3% 76%, 0% 70%, 2% 64%, 1% 58%, 3% 52%, 0% 46%, 2% 40%, 1% 34%, 3% 28%, 0% 22%, 2% 16%, 1% 10%, 3% 4%
-  );
-  display: flex; flex-direction: column; align-items: center; padding-top: 15%;
-}
-
+.torn-paper-edge { width: 100%; height: 100%; background: #fdfdfd; clip-path: polygon( 2% 1%, 6% 3%, 12% 0%, 18% 2%, 24% 0%, 30% 3%, 36% 1%, 42% 2%, 48% 0%, 54% 2%, 60% 1%, 66% 3%, 72% 0%, 78% 2%, 84% 1%, 90% 3%, 96% 0%, 98% 2%, 100% 8%, 98% 14%, 99% 20%, 97% 26%, 100% 32%, 98% 38%, 99% 44%, 97% 50%, 100% 56%, 98% 62%, 99% 68%, 97% 74%, 100% 80%, 98% 86%, 99% 92%, 97% 98%, 96% 100%, 90% 98%, 84% 99%, 78% 97%, 72% 100%, 66% 98%, 60% 99%, 54% 97%, 48% 100%, 42% 98%, 36% 99%, 30% 97%, 24% 100%, 18% 98%, 12% 99%, 6% 97%, 2% 99%, 0% 94%, 2% 88%, 1% 82%, 3% 76%, 0% 70%, 2% 64%, 1% 58%, 3% 52%, 0% 46%, 2% 40%, 1% 34%, 3% 28%, 0% 22%, 2% 16%, 1% 10%, 3% 4% ); display: flex; flex-direction: column; align-items: center; padding-top: 15%; }
 .cover-text { text-align: center; }
 .small-happy { display: block; font-family: var(--font-sans); font-size: clamp(0.4rem, 1.2cqw, 0.7rem); font-weight: 500; letter-spacing: 0.3em; color: #555; }
 .big-birthday { display: block; font-family: var(--font-hand); font-size: clamp(1.2rem, 3.5cqw, 2rem); line-height: 1; color: #222; transform: rotate(-5deg); margin-top: 2%; }
@@ -404,24 +337,13 @@ body {
 .twine { position: absolute; bottom: 20%; left: 30%; width: 40%; height: 2px; background: #6b4c3a; box-shadow: 0 1px 1px rgba(0,0,0,0.3); }
 .twine-bow { position: absolute; bottom: 12%; left: 40%; width: 20%; height: 15%; border: 1.5px solid #6b4c3a; border-radius: 50%; }
 
-/* Open State (Inside letter content) */
 .card-inside { position: absolute; inset: 0; display: flex; width: 100%; height: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-
-/* Expanded State resets 3D rotation so it reads perfectly flat on the screen */
-.aes-3d-card.expanded {
-  position: fixed; top: 50%; left: 50%; 
-  transform: translate(-50%, -50%) rotateX(0deg) rotateZ(0deg) scale(1) !important;
-  width: 90%; max-width: 800px; height: 80vh; z-index: 1000; cursor: default;
-}
+.aes-3d-card.expanded { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotateX(0deg) rotateZ(0deg) scale(1) !important; width: 90%; max-width: 800px; height: 80vh; z-index: 1000; cursor: default; }
 .aes-3d-card.expanded .card-cover { display: none; }
 .aes-3d-card.expanded .letter-shadow { display: none; }
 .aes-3d-card.expanded .card-inside { opacity: 1; pointer-events: auto; position: relative; }
 
-/* Inside Left (Navy Night Sky) */
-.inside-left {
-  flex: 0 0 35%; background: #0b192c; position: relative; overflow: hidden;
-  clip-path: polygon(0 0, 100% 0, 95% 5%, 100% 10%, 96% 15%, 100% 20%, 95% 25%, 100% 30%, 96% 35%, 100% 40%, 95% 45%, 100% 50%, 96% 55%, 100% 60%, 95% 65%, 100% 70%, 96% 75%, 100% 80%, 95% 85%, 100% 90%, 96% 95%, 100% 100%, 0 100%);
-}
+.inside-left { flex: 0 0 35%; background: #0b192c; position: relative; overflow: hidden; clip-path: polygon(0 0, 100% 0, 95% 5%, 100% 10%, 96% 15%, 100% 20%, 95% 25%, 100% 30%, 96% 35%, 100% 40%, 95% 45%, 100% 50%, 96% 55%, 100% 60%, 95% 65%, 100% 70%, 96% 75%, 100% 80%, 95% 85%, 100% 90%, 96% 95%, 100% 100%, 0 100%); }
 .card-moon { position: absolute; top: 15%; left: 20%; width: 80px; height: 80px; border-radius: 50%; box-shadow: inset 18px -12px 0 0 #f8fafc; filter: drop-shadow(0 0 8px rgba(255,255,255,0.3)); }
 .card-clouds { position: absolute; bottom: -20px; left: -20px; width: 150%; height: 40%; background: radial-gradient(circle at 30% 80%, #cbd5e1 0%, transparent 50%), radial-gradient(circle at 70% 90%, #94a3b8 0%, transparent 60%); opacity: 0.3; filter: blur(5px); }
 .card-stars { position: absolute; inset: 0; }
@@ -430,7 +352,6 @@ body {
 .star-floating { position: absolute; color: #fff; font-size: 1rem; }
 .sf1 { top: 20%; right: 20%; } .sf2 { bottom: 30%; left: 30%; }
 
-/* Inside Right (Cream Text Area) */
 .inside-right { flex: 1; background: #fdfbf7; position: relative; padding: 30px 40px; overflow-y: auto; }
 .top-moon-tag { position: absolute; top: 15px; right: 20px; width: 40px; height: 30px; background: #64748b; clip-path: polygon(0 0, 100% 0, 100% 100%, 5% 95%, 0 100%); display: flex; align-items: center; justify-content: center; }
 .tiny-moon { width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 3px -2px 0 0 #0f172a; }
@@ -438,24 +359,29 @@ body {
 .decor-stem { width: 2px; height: 100%; background: #657053; margin: 0 auto; }
 .decor-bloom { position: absolute; top: 0; left: -10px; width: 50px; height: 40px; background: radial-gradient(circle, #d4b595 2px, transparent 3px); background-size: 8px 8px; border-radius: 50%; }
 .decor-bow { position: absolute; top: 50%; left: -5px; width: 40px; height: 15px; background: #0b192c; clip-path: polygon(0 0, 100% 0, 80% 50%, 100% 100%, 0 100%, 20% 50%); }
-
 .letter-content { font-family: var(--font-hand); color: #1e293b; font-size: 1.3rem; line-height: 1.5; padding-right: 20px; }
 .letter-content p { margin-bottom: 15px; }
 .letter-signature { text-align: right; margin-top: 30px; font-size: 1.5rem; color: #0b192c; font-weight: bold; }
 
-
-/* Mobile Adjustments for Act II Alignment */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
-  .aes-table { inset: 68% -5% 0 -5%; }
-  .aes-center-cake { transform: translateX(-50%) scale(0.6); bottom: 44%; }
+  /* FULL SCREEN MOBILE FIX */
+  .aes-wrapper { aspect-ratio: auto; height: 100vh; max-width: 100vw; border-radius: 0; }
+  .aes-table { inset: 65% -5% 0 -5%; }
+  .aes-wall-text { top: 32%; left: 22%; font-size: clamp(3.5rem, 15vw, 5rem); }
+  .p-top-left { top: 43%; left: 10%; width: 18%; }
+  .p-top-right { top: 41%; right: 5%; width: 20%; }
+  .p-bot-1 { top: 54%; left: 20%; width: 16%; }
+  .p-bot-2 { top: 54%; left: 42%; width: 16%; }
+  .p-bot-3 { top: 54%; left: 64%; width: 16%; }
+  .aes-center-cake { transform: translateX(-50%) scale(0.75); bottom: 28%; }
+  .aes-candelabra { top: auto; bottom: 28%; height: 35%; right: 2%; width: 28%; }
   
-  /* Left Cluster Mobile Alignment - Scaled perfectly into the basket */
-  .aes-basket-cluster { left: 2%; width: 45%; bottom: 12%; height: 22%; }
-  .aes-memory-book { left: 2%; width: 32%; bottom: 20%; }
-  .aes-3d-card { left: 32%; width: 32%; bottom: 18%; }
-  .aes-gift-setup { right: 2%; width: 28%; bottom: 22%; }
+  .aes-basket-cluster { left: -2%; width: 55%; bottom: 8%; height: 22%; }
+  .aes-memory-book { left: 4%; width: 32%; bottom: 20%; }
+  .aes-3d-card { left: 32%; width: 32%; bottom: 18%; transform: perspective(800px) rotateX(55deg) rotateZ(-10deg); }
+  .aes-gift-setup { right: 2%; width: 30%; bottom: 22%; }
   
-  /* Mobile Open Letter Layout */
   .aes-3d-card.expanded { width: 95%; height: 85vh; flex-direction: column; }
   .inside-left { flex: 0 0 20%; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); border-bottom: 2px dashed #94a3b8; }
   .card-moon { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; box-shadow: inset 10px -8px 0 0 #f8fafc; }
