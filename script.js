@@ -14,17 +14,19 @@ const giftBox = document.getElementById('giftBox');
 const wishMessage = document.getElementById('wishMessage');
 const partyCat = document.getElementById('partyCat');
 const memoryAlbum = document.getElementById('memoryAlbum');
+
+// Decoupled Modals
+const letterModal = document.getElementById('letterMessage');
+const albumModal = document.getElementById('albumWrapper');
 const albumPages = document.getElementById('albumPages');
 const overlay = document.getElementById('overlayBackdrop');
 
 const closeLetter = document.getElementById('closeLetter');
 const closeAlbum = document.getElementById('closeAlbum');
-const closeGift = document.getElementById('closeGift');
+const closeGiftBtn = document.getElementById('closeGiftBtn');
 
-// Dynamically generate the 40 photos for the memory book
 const albumPhotos = Array.from({length: 40}, (_, i) => `${i + 1}.jpeg`);
 
-// Audio Context Variables
 let audioContext;
 let analyser;
 let microphone;
@@ -38,7 +40,6 @@ const BLOW_THRESHOLD = 0.07;
 const HOLD_DURATION = 180;
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Cake click handler
   if (pixelCake) {
     pixelCake.addEventListener('click', handleCakeClick);
     pixelCake.addEventListener('keydown', (event) => {
@@ -49,63 +50,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- ACT II MODAL LOGIC --- //
+  // --- ACT II MODAL LOGIC (DECOUPLED) --- //
   
   function closeAllPopups() {
-    // Close Letter
-    if(handwrittenLetter) {
-        handwrittenLetter.classList.remove('expanded');
-        document.getElementById('letterMessage').hidden = true;
-        document.getElementById('letterTeaser').hidden = false;
-    }
-    
-    // Close Album
-    if(memoryAlbum) {
-        memoryAlbum.classList.remove('expanded');
-        document.getElementById('albumWrapper').hidden = true;
+    if(letterModal) letterModal.hidden = true;
+    if(albumModal) {
+        albumModal.hidden = true;
         setTimeout(() => { albumPages.style.display = 'none'; }, 300);
     }
-
-    // Close Gift Box
+    
+    // Close Gift Box Locally
     if(giftBox) {
         giftBox.classList.remove('open');
-        giftBox.parentElement.classList.remove('expanded'); // Un-center it
+        const cluster = giftBox.closest('.aes-basket-cluster');
+        if(cluster) cluster.classList.remove('gift-open');
         document.getElementById('pixelChicken').hidden = true;
     }
 
-    // Hide global backdrop
     if(overlay) overlay.classList.remove('active');
   }
 
-  // Letter Expand handler
+  // Open Letter Modal
   if (handwrittenLetter) {
     handwrittenLetter.addEventListener('click', (e) => {
-      if (e.target.closest('.close-btn')) return; // Ignore if clicking close
-      const teaser = document.getElementById('letterTeaser');
-      const message = document.getElementById('letterMessage');
-      if (message.hidden) {
-        teaser.hidden = true;
-        message.hidden = false;
-        handwrittenLetter.classList.add('expanded');
+      if (e.target.closest('.close-btn')) return;
+      if (letterModal.hidden) {
+        letterModal.hidden = false;
         if(overlay) overlay.classList.add('active');
       }
     });
   }
 
-  // Gift box open handler
+  // Open Gift Box Locally (White Pop Up)
   if (giftBox) {
     giftBox.addEventListener('click', (e) => {
-      if (e.target.closest('.close-btn')) return; // Ignore if clicking close
       if (!giftBox.classList.contains('open')) {
         giftBox.classList.add('open');
-        giftBox.parentElement.classList.add('expanded'); // Center the box
+        const cluster = giftBox.closest('.aes-basket-cluster');
+        if(cluster) cluster.classList.add('gift-open'); 
         document.getElementById('pixelChicken').hidden = false;
         if(overlay) overlay.classList.add('active');
       }
     });
   }
 
-  // Memory Book Handler
+  // Open Album Modal
   if (memoryAlbum && albumPages) {
     albumPages.innerHTML = albumPhotos.map((photo) => `
       <div class="photo-wrap">
@@ -114,10 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
     
     memoryAlbum.addEventListener('click', (e) => {
-      if (e.target.closest('.close-btn')) return; // Ignore if clicking close
-      if (!memoryAlbum.classList.contains('expanded')) {
-        memoryAlbum.classList.add('expanded');
-        document.getElementById('albumWrapper').hidden = false;
+      if (e.target.closest('.close-btn')) return; 
+      if (albumModal.hidden) {
+        albumModal.hidden = false;
         albumPages.style.display = 'grid';
         if(overlay) overlay.classList.add('active');
       }
@@ -125,10 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Close Events for all "X" buttons and overlay background
-  [overlay, closeLetter, closeAlbum, closeGift].forEach(btn => {
+  [overlay, closeLetter, closeAlbum, closeGiftBtn].forEach(btn => {
     if(btn) {
         btn.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // Stops gift box from instantly re-opening
             closeAllPopups();
         });
     }
@@ -139,24 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- CAKE INTERACTION LOGIC --- //
 function handleCakeClick() {
   if (!candleLit) {
-    // 1. Light the candle
     candleFlame.classList.add('active');
     candleLit = true;
-    initialScreen.classList.add('celebration-active'); // This triggers the CSS to hide the caption
+    initialScreen.classList.add('celebration-active'); 
     if (partyCat) partyCat.classList.add('party-cat--visible');
     if (wishMessage) wishMessage.hidden = false;
     
-    // 2. Play the tune immediately
     if (backgroundMusic) {
       backgroundMusic.volume = 0.5;
       backgroundMusic.play().catch(e => console.log('Autoplay blocked by browser'));
     }
     
-    // 3. Fire the aesthetic poppers!
     fireConfetti(240);
     startConfettiRain();
-    
-    // 4. Start the microphone to listen for the blow
     startMicSequence();
   }
 }
@@ -166,7 +149,6 @@ async function startMicSequence() {
   volumeHud.hidden = false;
 
   if (!success) {
-    // If mic fails, they must allow permissions.
     volumeText.innerHTML = 'Mic access denied.<br><b>Please refresh and allow mic access to blow out the candle!</b>';
     volumeFill.style.width = '0%';
     volumeFill.style.background = '#f43f5e';
@@ -207,7 +189,6 @@ async function requestMicrophone() {
   }
 }
 
-// --- MICROPHONE BLOW LOGIC --- //
 function computeVolume() {
   if (!analyser) return 0;
   const data = new Uint8Array(analyser.fftSize);
@@ -248,7 +229,6 @@ function listenForBlow() {
   animationFrame = requestAnimationFrame(listenForBlow);
 }
 
-// --- CELEBRATION TRANSITION --- //
 function triggerCelebration() {
   if (hasCelebrated) return;
   hasCelebrated = true;
@@ -272,7 +252,6 @@ function triggerCelebration() {
       initialScreen.hidden = true;
       celebrationScreen.hidden = false;
       
-      // Force reflow
       void celebrationScreen.offsetWidth;
       celebrationScreen.style.opacity = '1';
 
@@ -282,7 +261,6 @@ function triggerCelebration() {
   }, 500);
 }
 
-// --- PRO CANVAS CONFETTI ENGINE --- //
 let confettiParticles = [];
 let isConfettiRunning = false;
 

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css?v=65" />
+  <link rel="stylesheet" href="style.css?v=117" />
   <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn8B9YlW0QAAAABJRU5ErkJggg==">
 </head>
 <body>
@@ -21,6 +21,7 @@
     <div class="stars-container" id="starsContainer"></div>
 
     <div class="hero-layout">
+      <!-- Interactive cake focal point -->
       <div class="cake-feature">
         <div class="cake-feature__halo"></div>
         <div class="cake-feature__eyebrow"></div>
@@ -54,7 +55,7 @@
             <div class="cake-plate"><span></span></div>
           </div>
         </div>
-        <div class="cake-feature__caption">Tap the cake and unfold the magic hehe </div>
+        <div class="cake-feature__caption">Tap the cake and unfold the magic hehe</div>
         <p class="handwritten-note handwritten-note--after-click" id="wishMessage" hidden>"Now, keep your eyes shut and manifest something good for yourself and then blow the candle (towards microphone XD)!"</p>
       </div>
 
@@ -63,7 +64,7 @@
         <p class="instruction-lead">[a lil surprise for you T^T ]</p>
 
         <div class="volume-hud" id="volumeHud" hidden>
-          <p class="volume-text" id="volumeText">Blow gently towards your microphone... 💨</p>
+          <p class="volume-text" id="volumeText">Blow gently toward your microphone... 💨</p>
           <div class="volume-track">
             <div class="volume-fill" id="volumeFill"></div>
           </div>
@@ -78,6 +79,8 @@
   <!-- ACT II: CELEBRATION SCREEN -->
   <main id="celebrationScreen" class="screen screen--celebration" hidden>
     
+    <div id="overlayBackdrop" class="overlay-backdrop"></div>
+
     <div class="aes-wrapper">
       
       <!-- BACKGROUND / WALL -->
@@ -112,6 +115,7 @@
           </svg>
         </div>
 
+        <!-- STAMPED WALL CENTER GROUP -->
         <div class="aes-wall-center">
           <div class="aes-wall-text">
             Happy<br>Birthday
@@ -142,6 +146,15 @@
         <div class="aes-table-surface"></div>
         <div class="aes-table-runner"></div>
 
+        <!-- RIGHT CANDELABRA (Moved to right) -->
+        <div class="aes-candelabra">
+          <div class="aes-ground-shadow candelabra-shadow"></div>
+          <div class="tall-candle c-left"><div class="tall-flame"></div></div>
+          <div class="tall-candle c-center"><div class="tall-flame"></div></div>
+          <div class="tall-candle c-right"><div class="tall-flame"></div></div>
+        </div>
+
+        <!-- CENTER CAKE (Pushed back, behind basket) -->
         <div class="aes-center-cake">
           <div class="aes-ground-shadow cake-shadow"></div>
           <div class="pixel-cake">
@@ -169,23 +182,11 @@
           </div>
         </div>
 
-        <div class="aes-candelabra">
-          <div class="aes-ground-shadow candelabra-shadow"></div>
-          <div class="tall-candle c-left"><div class="tall-flame"></div></div>
-          <div class="tall-candle c-right"><div class="tall-flame"></div></div>
-          <div class="tall-candle c-center"><div class="tall-flame"></div></div>
-        </div>
-
-        <!-- LEFT CLUSTER -->
+        <!-- LEFT CLUSTER (Basket is pushed left and elevated IN FRONT of cake) -->
         <div class="aes-basket-cluster">
-          
-          <!-- FIXED OVERLAY: Placing this inside the cluster guarantees it sits behind opened items! -->
-          <div id="overlayBackdrop" class="overlay-backdrop"></div>
-
           <div class="aes-ground-shadow basket-floor-shadow"></div>
           <div class="basket-back"></div>
           
-          <!-- 1. The Pro Memory Book -->
           <div id="memoryAlbum" class="aes-memory-book" aria-label="Open photo album">
             <div class="book-cover-closed" id="albumTeaser">
                <div class="book-spiral">
@@ -201,24 +202,20 @@
                   <div class="scrabble-tile">M<small>3</small></div>
                   <div class="scrabble-tile">O<small>1</small></div>
                   <div class="scrabble-tile">R<small>1</small></div>
-                  <div class="scrabble-tile">I<small>1</small></div>
-                  <div class="scrabble-tile">E<small>1</small></div>
-                  <div class="scrabble-tile">S<small>1</small></div>
+                  <div class="scrabble-tile">Y<small>4</small></div>
+                  <div class="scrabble-tile" style="background: transparent; border: none; box-shadow: none;"></div>
+                  <div class="scrabble-tile">B<small>3</small></div>
+                  <div class="scrabble-tile">O<small>1</small></div>
+                  <div class="scrabble-tile">O<small>1</small></div>
+                  <div class="scrabble-tile">K<small>5</small></div>
                </div>
                <div class="book-ribbon-tie">
                   <div class="tie-loop-top"></div>
                   <div class="tie-loop-bot"></div>
                </div>
             </div>
-            
-            <div class="book-inside-wrapper" id="albumWrapper" hidden>
-              <!-- Safe Close Button -->
-              <button class="close-btn" id="closeAlbum">✖</button>
-              <div class="book-inside-open" id="albumPages"></div>
-            </div>
           </div>
   
-          <!-- 2. The 3D Letter -->
           <article id="handwrittenLetter" class="aes-3d-card">
             <div class="card-cover" id="letterTeaser">
               <div class="craft-paper-base">
@@ -239,59 +236,9 @@
                 </div>
               </div>
             </div>
-  
-            <div class="card-inside" id="letterMessage" hidden>
-              <!-- Safe Close Button -->
-              <button class="close-btn" id="closeLetter">✖</button>
-
-              <div class="inside-left">
-                <div class="card-moon"></div>
-                <div class="card-clouds"></div>
-                <div class="card-stars">
-                  <div class="star-line s1">★</div>
-                  <div class="star-line s2">★</div>
-                  <div class="star-line s3">★</div>
-                  <div class="star-floating sf1">✦</div>
-                  <div class="star-floating sf2">✧</div>
-                </div>
-              </div>
-              <div class="inside-right">
-                <div class="top-moon-tag">
-                  <div class="tiny-moon"></div>
-                </div>
-                <div class="side-flower-decor">
-                  <div class="decor-stem"></div>
-                  <div class="decor-bloom"></div>
-                  <div class="decor-bow"></div>
-                </div>
-                
-                <div class="letter-content">
-                  <p>Hi!</p>
-                  <p>So, when I'm writing this, I'm kinda mad at you. Then again, ki ar kora!!! I have to, ur birthday je! Raat jege eshob kortesi boshe boshe XD. You told me about a whole report on Fiad in My Eyes, etc. etc. Ehh, ki narcissistic! Like, tf am I supposed to write? hae? </p>
-                  <p>Then again, it's your birthday, and as I told you before, I love surprising my close ones, especially on their birthdays. I love making them feel special, especially on their birthdays. So yes, I'm writing this for you (especially not for your sake, but for your birthday's sake T^T).</p>
-                  <p>...Moving on....</p>
-                  <p><strong>Fiad in My Eyes.....</strong></p>
-                  <p>Fiad in my eyes is a kid trying so hard to look hot, but not hot at all, at least not in my eyes (he is gayyyyyyyyyy T^T).</p>
-                  <p>A kid who giggles hudai on random xyz (he finds everything funny XD). A kid who LOVES appreciation. Mygod, etto beshiiii! Ektu appreciate korlei melt hoye jay, then goes, "Aro bolo, aro bolo." (Ehhhhe, like etto self-obsessed!!!).</p>
-                  <p>Eto body freak je, 10 ta messages-er moddhe 9 tai tar body consciousness-related thake. (Sighhhh, I'm so tired of him).</p>
-                  <p>Fiaddd, A streamer. A crybaby, obv. Someone who keeps nagging to hang out.(But ami to ami, so you already know how that goes XD).</p>
-                  <p>Fiad in my eyes is the fiaddd whose purpose in my life I'm still, constantly trying to figure out. Like, seriously, what even are you doing in my life? XD.</p>
-                  <p>Fiad in my eyes is my movie-partner, my xyz-sharing partner, and someone whose smile makes all 32 of his teeth visible, just like mine XD. (But amr motoi cute lage hashle T^T, so cant roast here).</p>
-                  <p>Fiad is someone I'd show to my future husband just to make him jealous. (Eta tomake khushi korar jonno bolsi, don't blush XD).</p>
-                  <p>Fiad is also one of my most loyal reel likers. And, well, he's actually a valo manush. (Lyingggg. Obviously. XD).</p>
-                  <p> Praying je ei Fiaddd life e onekkkkk valo kichu koruk. Hope he gets to achieve all the things he dreams of and becomes someone he's genuinely proud of. Hope I get to remain one of the good memories of Fiad's life, too. Aside, oy jemon meye chacche (I know, but I can't write it here XD XD), omon kaukei biye koruk. Someone who can minimize his loneliness (which he isn't feeling at all, obviously XD).</p>
-                  <p>Anywayyy,</p>
-                  <p>Happiest Birthday, FIADDDD Hossain Chowdhury!</p>
-                  <p>Be happy, stay healthy, and live the best life you possibly can. A life you can look back on and feel proud of. The life you've shared that you're going to pursue, the life you've dreamed of, and a life with a little less pain.</p>
-                  <p>May you have a whimsical life filled with blessings and lots of fairies XD. May life be kind to you, and may you always find little reasons to smile, even on the days when things get difficult.</p>
-                  <p>Tataaa.</p>
-                  <p class="letter-signature">Regards,<br><span>Bablyyy (another narcissistic someone like you XD).</span></p>
-                </div>
-              </div>
-            </div>
           </article>
 
-          <!-- 3. Green Plaid Gift Box -->
+          <!-- Green Plaid Gift Box (Restored to White Modal layout) -->
           <div class="aes-gift-setup">
             <div id="giftBox" class="aes-plaid-box">
               <div class="box-body plaid-pattern"></div>
@@ -303,83 +250,81 @@
                 <div class="bow-center"></div>
               </div>
               
+              <!-- White Popup Card container -->
               <div class="pixel-chicken" id="pixelChicken" hidden>
-                <div class="art-backdrop">
-                  <!-- Safe Close Button -->
-                  <button class="close-btn" id="closeGift">✖</button>
-                  
-                  <div class="art-item art-popper">
-                    <div class="popper-tube"></div>
-                    <div class="popper-burst">
-                      <div class="p-confetti c1"></div><div class="p-confetti c2"></div><div class="p-confetti c3"></div>
-                      <div class="p-confetti c4"></div><div class="p-confetti c5"></div><div class="p-confetti c6"></div>
-                      <div class="p-confetti c7"></div><div class="p-confetti c8"></div><div class="p-confetti c9"></div>
-                    </div>
+                <button class="close-btn popup-close" id="closeGiftBtn">✖</button>
+                
+                <div class="art-item art-popper">
+                  <div class="popper-tube"></div>
+                  <div class="popper-burst">
+                    <div class="p-confetti c1"></div><div class="p-confetti c2"></div><div class="p-confetti c3"></div>
+                    <div class="p-confetti c4"></div><div class="p-confetti c5"></div><div class="p-confetti c6"></div>
+                    <div class="p-confetti c7"></div><div class="p-confetti c8"></div><div class="p-confetti c9"></div>
                   </div>
-
-                  <div class="art-item art-cat">
-                    <div class="cat-tail"></div>
-                    <div class="cat-body">
-                      <div class="cat-paw p-left"></div>
-                      <div class="cat-paw p-right"></div>
-                    </div>
-                    <div class="cat-ear e-left"><div class="ear-inner"></div></div>
-                    <div class="cat-ear e-right"><div class="ear-inner"></div></div>
-                    <div class="cat-head">
-                      <div class="cat-eye eye-l"></div>
-                      <div class="cat-eye eye-r"></div>
-                      <div class="cat-blush blush-l"></div>
-                      <div class="cat-blush blush-r"></div>
-                      <div class="cat-mouth">w</div>
-                      <div class="cat-whisker wl1"></div><div class="cat-whisker wl2"></div><div class="cat-whisker wl3"></div>
-                      <div class="cat-whisker wr1"></div><div class="cat-whisker wr2"></div><div class="cat-whisker wr3"></div>
-                    </div>
-                  </div>
-
-                  <div class="art-item art-hen">
-                    <div class="hen-comb">
-                      <div class="comb-bump cb1"></div><div class="comb-bump cb2"></div><div class="comb-bump cb3"></div>
-                    </div>
-                    <div class="hen-tail">
-                      <div class="tail-feather tf1"></div><div class="tail-feather tf2"></div><div class="tail-feather tf3"></div>
-                    </div>
-                    <div class="hen-feet">
-                      <div class="hen-foot f-left"></div><div class="hen-foot f-right"></div>
-                    </div>
-                    <div class="hen-body">
-                      <div class="hen-wing w-left"></div>
-                      <div class="hen-wing w-right"></div>
-                      <div class="hen-eye h-eye-l"></div>
-                      <div class="hen-eye h-eye-r"></div>
-                      <div class="hen-cheek h-cheek-l"></div>
-                      <div class="hen-cheek h-cheek-r"></div>
-                      <div class="hen-beak"></div>
-                      <div class="hen-wattle"></div>
-                    </div>
-                    <div class="hen-heart">♥</div>
-                  </div>
-
-                  <div class="art-item art-duck">
-                    <div class="duck-feet">
-                      <div class="duck-foot df-left"></div><div class="duck-foot df-right"></div>
-                    </div>
-                    <div class="duck-body"></div>
-                    <div class="duck-head">
-                      <div class="duck-blush d-blush-l"></div>
-                      <div class="duck-blush d-blush-r"></div>
-                      <div class="duck-glasses">
-                        <div class="glass-lens gl-left"></div>
-                        <div class="glass-bridge"></div>
-                        <div class="glass-lens gl-right"></div>
-                        <div class="glass-arm ga-left"></div>
-                        <div class="glass-arm ga-right"></div>
-                      </div>
-                      <div class="duck-bill"></div>
-                    </div>
-                  </div>
-
-                  <div class="speech-bubble" id="chickenNote">Heres your protein source, poppers and emotional support animals T^T </div>
                 </div>
+
+                <div class="art-item art-cat">
+                  <div class="cat-tail"></div>
+                  <div class="cat-body">
+                    <div class="cat-paw p-left"></div>
+                    <div class="cat-paw p-right"></div>
+                  </div>
+                  <div class="cat-ear e-left"><div class="ear-inner"></div></div>
+                  <div class="cat-ear e-right"><div class="ear-inner"></div></div>
+                  <div class="cat-head">
+                    <div class="cat-eye eye-l"></div>
+                    <div class="cat-eye eye-r"></div>
+                    <div class="cat-blush blush-l"></div>
+                    <div class="cat-blush blush-r"></div>
+                    <div class="cat-mouth">w</div>
+                    <div class="cat-whisker wl1"></div><div class="cat-whisker wl2"></div><div class="cat-whisker wl3"></div>
+                    <div class="cat-whisker wr1"></div><div class="cat-whisker wr2"></div><div class="cat-whisker wr3"></div>
+                  </div>
+                </div>
+
+                <div class="art-item art-hen">
+                  <div class="hen-comb">
+                    <div class="comb-bump cb1"></div><div class="comb-bump cb2"></div><div class="comb-bump cb3"></div>
+                  </div>
+                  <div class="hen-tail">
+                    <div class="tail-feather tf1"></div><div class="tail-feather tf2"></div><div class="tail-feather tf3"></div>
+                  </div>
+                  <div class="hen-feet">
+                    <div class="hen-foot f-left"></div><div class="hen-foot f-right"></div>
+                  </div>
+                  <div class="hen-body">
+                    <div class="hen-wing w-left"></div>
+                    <div class="hen-wing w-right"></div>
+                    <div class="hen-eye h-eye-l"></div>
+                    <div class="hen-eye h-eye-r"></div>
+                    <div class="hen-cheek h-cheek-l"></div>
+                    <div class="hen-cheek h-cheek-r"></div>
+                    <div class="hen-beak"></div>
+                    <div class="hen-wattle"></div>
+                  </div>
+                  <div class="hen-heart">♥</div>
+                </div>
+
+                <div class="art-item art-duck">
+                  <div class="duck-feet">
+                    <div class="duck-foot df-left"></div><div class="duck-foot df-right"></div>
+                  </div>
+                  <div class="duck-body"></div>
+                  <div class="duck-head">
+                    <div class="duck-blush d-blush-l"></div>
+                    <div class="duck-blush d-blush-r"></div>
+                    <div class="duck-glasses">
+                      <div class="glass-lens gl-left"></div>
+                      <div class="glass-bridge"></div>
+                      <div class="glass-lens gl-right"></div>
+                      <div class="glass-arm ga-left"></div>
+                      <div class="glass-arm ga-right"></div>
+                    </div>
+                    <div class="duck-bill"></div>
+                  </div>
+                </div>
+
+                <div class="speech-bubble" id="chickenNote">Heres your protein source, poppers and emotional support animals T^T</div>
               </div>
 
             </div>
@@ -390,12 +335,73 @@
 
       </div>
     </div>
+
+    <!-- ==========================================
+         DECOUPLED MODALS (PERMANENT TRANSPARENCY FIX)
+    =========================================== -->
+
+    <!-- Album Modal -->
+    <div id="albumWrapper" class="modal-container" hidden>
+      <button class="close-btn" id="closeAlbum">✖</button>
+      <div class="book-inside-open" id="albumPages"></div>
+    </div>
+
+    <!-- Letter Modal -->
+    <div id="letterMessage" class="modal-container" hidden>
+      <button class="close-btn" id="closeLetter">✖</button>
+
+      <div class="inside-left">
+        <div class="card-moon"></div>
+        <div class="card-clouds"></div>
+        <div class="card-stars">
+          <div class="star-line s1">★</div>
+          <div class="star-line s2">★</div>
+          <div class="star-line s3">★</div>
+          <div class="star-floating sf1">✦</div>
+          <div class="star-floating sf2">✧</div>
+        </div>
+      </div>
+      <div class="inside-right">
+        <div class="top-moon-tag">
+          <div class="tiny-moon"></div>
+        </div>
+        <div class="side-flower-decor">
+          <div class="decor-stem"></div>
+          <div class="decor-bloom"></div>
+          <div class="decor-bow"></div>
+        </div>
+        
+        <div class="letter-content">
+          <p>Hi!</p>
+          <p>So, when I'm writing this, I'm kinda mad at you. Then again, ki ar kora!!! I have to, ur birthday je! Raat jege eshob kortesi boshe boshe XD. You told me about a whole report on Fiad in My Eyes, etc. etc. Ehh, ki narcissistic! Like, tf am I supposed to write? hae? </p>
+          <p>Then again, it's your birthday, and as I told you before, I love surprising my close ones, especially on their birthdays. I love making them feel special, especially on their birthdays. So yes, I'm writing this for you (especially not for your sake, but for your birthday's sake T^T).</p>
+          <p>...Moving on....</p>
+          <p><strong>Fiad in My Eyes.....</strong></p>
+          <p>Fiad in my eyes is a kid trying so hard to look hot, but not hot at all, at least not in my eyes (he is gayyyyyyyyyy T^T).</p>
+          <p>A kid who giggles hudai on random xyz (he finds everything funny XD). A kid who LOVES appreciation. Mygod, etto beshiiii! Ektu appreciate korlei melt hoye jay, then goes, "Aro bolo, aro bolo." (Ehhhhe, like etto self-obsessed!!!).</p>
+          <p>Eto body freak je, 10 ta messages-er moddhe 9 tai tar body consciousness-related thake. (Sighhhh, I'm so tired of him).</p>
+          <p>Fiaddd, A streamer. A crybaby, obv. Someone who keeps nagging to hang out.(But ami to ami, so you already know how that goes XD).</p>
+          <p>Fiad in my eyes is the fiaddd whose purpose in my life I'm still, constantly trying to figure out. Like, seriously, what even are you doing in my life? XD.</p>
+          <p>Fiad in my eyes is my movie-partner, my xyz-sharing partner, and someone whose smile makes all 32 of his teeth visible, just like mine XD. (But amr motoi cute lage hashle T^T, so cant roast here).</p>
+          <p>Fiad is someone I'd show to my future husband just to make him jealous. (Eta tomake khushi korar jonno bolsi, don't blush XD).</p>
+          <p>Fiad is also one of my most loyal reel likers. And, well, he's actually a valo manush. (Lyingggg. Obviously. XD).</p>
+          <p> Praying je ei Fiaddd life e onekkkkk valo kichu koruk. Hope he gets to achieve all the things he dreams of and becomes someone he's genuinely proud of. Hope I get to remain one of the good memories of Fiad's life, too. Aside, oy jemon meye chacche (I know, but I can't write it here XD XD), omon kaukei biye koruk. Someone who can minimize his loneliness (which he isn't feeling at all, obviously XD).</p>
+          <p>Anywayyy,</p>
+          <p>Happiest Birthday, FIADDDD Hossain Chowdhury!</p>
+          <p>Be happy, stay healthy, and live the best life you possibly can. A life you can look back on and feel proud of. The life you've shared that you're going to pursue, the life you've dreamed of, and a life with a little less pain.</p>
+          <p>May you have a whimsical life filled with blessings and lots of fairies XD. May life be kind to you, and may you always find little reasons to smile, even on the days when things get difficult.</p>
+          <p>Tataaa.</p>
+          <p class="letter-signature">Regards,<br><span>Bablyyy (another narcissistic someone like you XD).</span></p>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <audio id="backgroundMusic" loop>
     <source src="hbb.mp3" type="audio/mpeg">
   </audio>
 
-  <script src="script.js?v=65"></script>
+  <script src="script.js?v=117"></script>
 </body>
 </html>
