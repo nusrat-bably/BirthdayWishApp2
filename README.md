@@ -132,7 +132,14 @@ Because the microphone feature requires browser permission and secure access, yo
 ### Option 1: Python
 
 ```bash
+<<<<<<< HEAD
 cd /Users/nusrat_bably/Desktop/BirthdayWishApp2
+=======
+# Navigate to the project folder
+cd /Users/nusrat_bably/Desktop/Fiads'Brthday
+
+# Start a local server
+>>>>>>> d163f62b411d4b5a4971214984a924955226a664
 python3 -m http.server 8000
 ```
 
