@@ -24,7 +24,7 @@ Blow out the candle to transition between screens and explore the interactive el
 ### Option 1: Python (Easiest)
 ```bash
 # Navigate to the project folder
-cd /Users/nusrat_bably/Desktop/ADisBrthday
+cd /Users/nusrat_bably/Desktop/Fiads'Brthday
 
 # Start a local server
 python3 -m http.server 8000
